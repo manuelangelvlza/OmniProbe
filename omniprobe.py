@@ -10,9 +10,12 @@ Examples:
 """
 
 import argparse
+import socket
 import sys
 
 from core import config
+from core.ports import parse_port_range, get_nmap_top_ports
+from core.protocol import send_message, recv_message, MSG_TYPE_SCAN_REQUEST, MSG_TYPE_ERROR
 
 # arg parsing
 
@@ -75,9 +78,55 @@ def main():
     else:
         print(f'Top ports  : {args.top}')
 
-    # TODO: resolve port list
-    # TODO: connect to measurement server
-    # TODO: send scan request & receive results
+    # Resolve port list
+    if args.ports:
+        ports = parse_port_range(args.ports)
+    else:
+        ports = get_nmap_top_ports(filepath=config.NMAP_SERVICES_PATH, top_n=args.top)
+
+    if not ports:
+        print('Error: No valid ports resolved. Exiting.', file=sys.stderr)
+        sys.exit(1)
+
+    print(f'Ports      : {len(ports)} ports resolved')
+
+    # Connect to measurement server
+    print(f'Connecting to {args.server}:{args.server_port}...')
+    try:
+        sock = socket.create_connection((args.server, args.server_port), timeout=args.timeout)
+    except (socket.timeout, ConnectionRefusedError, OSError) as e:
+        print(f'Error: Could not connect to server: {e}', file=sys.stderr)
+        sys.exit(1)
+
+    print('Connected.')
+
+    # Send scan request & receive results
+    try:
+        request = {
+            'type': MSG_TYPE_SCAN_REQUEST,
+            'protocol': args.protocol,
+            'ports': ports,
+            'timeout': args.timeout,
+        }
+        if not send_message(sock, request):
+            print('Error: Failed to send scan request.', file=sys.stderr)
+            sys.exit(1)
+
+        print('Scan request sent. Waiting for results...')
+
+        response = recv_message(sock)
+        if response is None:
+            print('Error: No response received from server.', file=sys.stderr)
+            sys.exit(1)
+
+        if response.get('type') == MSG_TYPE_ERROR:
+            print(f'Server error: {response.get("message", "unknown error")}', file=sys.stderr)
+            sys.exit(1)
+
+        print('Results:')
+        print(response)
+    finally:
+        sock.close()
 
 
 if __name__ == '__main__':
