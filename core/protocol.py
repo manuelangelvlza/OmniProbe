@@ -1,7 +1,9 @@
 import json
 import struct
 
-# standard messages types
+# standard message types
+MSG_TYPE_CONNECT = "CONNECT"
+MSG_TYPE_CONNECT_ACK = "CONNECT_ACK"
 MSG_TYPE_SCAN_REQUEST = "SCAN_REQUEST"
 MSG_TYPE_SCAN_ACK = "SCAN_ACK"
 MSG_TYPE_RESULT = "RESULT"
@@ -62,47 +64,3 @@ def _recv_exactly(sock, num_bytes):
             return None 
         data += packet
     return data
-
-# --- Quick Test Block ---
-if __name__ == "__main__":
-    import socket
-    import threading
-    import time
-
-    # A quick local test to prove the framing works
-    def mock_server():
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind(('127.0.0.1', 9999))
-        server.listen(1)
-        conn, addr = server.accept()
-        
-        print("Server: Waiting for message...")
-        msg = recv_message(conn)
-        print(f"Server received: {msg}")
-        
-        reply = {"type": MSG_TYPE_SCAN_ACK, "status": "Ready"}
-        send_message(conn, reply)
-        conn.close()
-        server.close()
-
-    # Start the dummy server in the background
-    threading.Thread(target=mock_server, daemon=True).start()
-    time.sleep(0.5) # Give it a moment to start
-
-    # Act as the client
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(('127.0.0.1', 9999))
-    
-    test_msg = {
-        "type": MSG_TYPE_SCAN_REQUEST, 
-        "direction": "incoming",
-        "protocol": "udp",
-        "ports": [53, 67, 123]
-    }
-    print(f"Client sending: {test_msg}")
-    send_message(client, test_msg)
-    
-    response = recv_message(client)
-    print(f"Client received reply: {response}")
-    
-    client.close()
