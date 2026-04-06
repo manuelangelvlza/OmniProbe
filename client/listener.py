@@ -1,6 +1,7 @@
 import socket
 import platform
-from core.config import DEFAULT_CONTROL_PORT, DEFAULT_TIMEOUT, DEFAULT_DELAY
+import uuid
+from core.config import DEFAULT_CONTROL_PORT, DEFAULT_TIMEOUT, DEFAULT_DELAY, DEFAULT_PROTOCOL
 from core.protocol import (
     send_message, recv_message,
     MSG_TYPE_CONNECT, MSG_TYPE_CONNECT_ACK,
@@ -27,60 +28,57 @@ def connect(server_host, server_port=DEFAULT_CONTROL_PORT, scan_config=None):
 
 
 def _run_session(sock, server_host, scan_config):
-    msg = recv_message(sock)
-    if not msg or msg.get("type") != MSG_TYPE_CONNECT:
-        print("[Client] Expected CONNECT from server.")
-        return
-
+    # --- Handshake: client initiates ---
     send_message(sock, {
-        "type": MSG_TYPE_CONNECT_ACK,
+        "type": MSG_TYPE_CONNECT,
         "info": {
             "os": platform.system(),
             "os_version": platform.release(),
         },
-        "scan_config": scan_config,
     })
-    print(f"[Client] Handshake complete. Requested: "
-          f"{scan_config.get('protocol', 'tcp').upper()}, "
-          f"{len(scan_config.get('ports', []))} ports")
 
-    # --- Main control loop ---
-    while True:
-        msg = recv_message(sock)
-        if msg is None:
-            print("[Client] Server closed the connection.")
-            break
+    msg = recv_message(sock)
+    if not msg or msg.get("type") != MSG_TYPE_CONNECT_ACK:
+        print("[Client] Expected CONNECT_ACK from server.")
+        return
+    print("[Client] Handshake complete.")
 
-        msg_type = msg.get("type")
-
-        if msg_type == MSG_TYPE_SCAN_REQUEST:
-            _handle_scan_request(sock, msg, server_host)
-        elif msg_type == MSG_TYPE_RESULT:
-            _print_results(msg)
-        elif msg_type == MSG_TYPE_ERROR:
-            print(f"[Client] Server error: {msg.get('message')}")
-            break
-        else:
-            print(f"[Client] Unknown message type: {msg_type!r}")
-
-
-def _handle_scan_request(sock, msg, server_host):
-    scan_id = msg.get("scan_id")
-    direction = msg.get("direction")
-    protocol = msg.get("protocol")
-    ports = msg.get("ports", [])
-    timeout = msg.get("timeout", DEFAULT_TIMEOUT)
-    delay = msg.get("delay", DEFAULT_DELAY)
-
-    print(f"[Client] Scan request [{scan_id}]: {direction} {protocol.upper()}, {len(ports)} ports")
+    # --- Send scan request ---
+    scan_id   = str(uuid.uuid4())[:8]
+    direction = scan_config.get("direction", "inbound")
+    protocol  = scan_config.get("protocol", DEFAULT_PROTOCOL)
+    ports     = scan_config.get("ports", [])
+    timeout   = scan_config.get("timeout", DEFAULT_TIMEOUT)
+    delay     = scan_config.get("delay", DEFAULT_DELAY)
 
     send_message(sock, {
-        "type": MSG_TYPE_SCAN_ACK,
+        "type": MSG_TYPE_SCAN_REQUEST,
         "scan_id": scan_id,
-        "status": "ready",
+        "direction": direction,
+        "protocol": protocol,
+        "ports": ports,
+        "timeout": timeout,
+        "delay": delay,
     })
+    print(f"[Client] Scan request [{scan_id}]: {direction} {protocol.upper()}, {len(ports)} ports")
 
-    if direction == "outbound":
+    # --- Wait for SCAN_ACK ---
+    ack = recv_message(sock)
+    if not ack or ack.get("type") != MSG_TYPE_SCAN_ACK:
+        print(f"[Client] Expected SCAN_ACK, got: {ack}")
+        return
+
+    if direction == "inbound":
+        # Server scans and sends the result
+        msg = recv_message(sock)
+        if not msg:
+            print("[Client] Server disconnected before sending results.")
+        elif msg.get("type") == MSG_TYPE_RESULT:
+            _print_results(msg)
+        elif msg.get("type") == MSG_TYPE_ERROR:
+            print(f"[Client] Server error: {msg.get('message')}")
+
+    elif direction == "outbound":
         # Client scans the server and reports back
         print(f"[Client] Running {protocol.upper()} scan toward server...")
         results = scan_ports(server_host, protocol, ports, timeout=timeout, delay=delay)
@@ -90,11 +88,12 @@ def _handle_scan_request(sock, msg, server_host):
             "direction": direction,
             "results": results,
         })
+        _print_results({"scan_id": scan_id, "direction": direction, "results": results})
 
 
 def _print_results(msg):
-    results = msg.get("results", [])
-    scan_id = msg.get("scan_id", "?")
+    results  = msg.get("results", [])
+    scan_id  = msg.get("scan_id", "?")
     direction = msg.get("direction", "?")
     print(f"\n  Scan [{scan_id}] — {direction}:")
     for r in results:
