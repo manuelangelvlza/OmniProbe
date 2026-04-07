@@ -1,11 +1,16 @@
 from time import sleep
 from core.config import DEFAULT_TIMEOUT, DEFAULT_DELAY
-from scapy.all import IP, TCP, UDP, ICMP, sr1, send, RandShort  # type: ignore
+from scapy.all import IP, TCP, UDP, ICMP, sr1, send, RandShort, IPOption_RR, IPOption_Timestamp, IPOption_Router_Alert  # type: ignore
 import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+IP_OPTIONS = {
+    "record_route": IPOption_RR,
+    "timestamp": IPOption_Timestamp,
+    "router_alert": IPOption_Router_Alert,
+}
 
-def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAULT_DELAY):
+def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAULT_DELAY, ip_option=None):
     """
     Scan a list of ports on target_ip.
     Returns a list of dicts: {port, protocol, state}.
@@ -13,15 +18,18 @@ def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAUL
     """
     results = []
 
+    if ip_option is not None and ip_option not in IP_OPTIONS:
+        raise ValueError(f"Unsupported IP option: {ip_option}. Valid options: {list(IP_OPTIONS.keys())}")
+
     if protocol == "tcp":
         for port in ports:
-            state = _tcp_syn_scan(target_ip, port, timeout)
+            state = _tcp_syn_scan(target_ip, port, timeout, ip_option)
             sleep(delay)
             results.append({"port": port, "protocol": "tcp", "state": state})
 
     elif protocol == "udp":
         for port in ports:
-            state = _udp_scan(target_ip, port, timeout)
+            state = _udp_scan(target_ip, port, timeout, ip_option)
             sleep(delay)
             results.append({"port": port, "protocol": "udp", "state": state})
 
@@ -31,8 +39,9 @@ def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAUL
     return results
 
 
-def _tcp_syn_scan(target_ip, port, timeout):
-    pkt = IP(dst=target_ip) / TCP(dport=port,
+def _tcp_syn_scan(target_ip, port, timeout, ip_option=None):
+    options = [IP_OPTIONS[ip_option]()] if ip_option else []
+    pkt = IP(dst=target_ip, options=options) / TCP(dport=port,
                                   sport=int(RandShort()), flags="S")
     resp = sr1(pkt, timeout=timeout, verbose=0)
 
@@ -57,8 +66,9 @@ def _tcp_syn_scan(target_ip, port, timeout):
     return "filtered"
 
 
-def _udp_scan(target_ip, port, timeout):
-    pkt = IP(dst=target_ip) / UDP(dport=port)
+def _udp_scan(target_ip, port, timeout, ip_option=None):
+    options = [IP_OPTIONS[ip_option]()] if ip_option else []
+    pkt = IP(dst=target_ip, options=options) / UDP(dport=port)
     resp = sr1(pkt, timeout=timeout, verbose=0)
 
     if resp is None:
