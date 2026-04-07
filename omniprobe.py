@@ -63,6 +63,10 @@ Ports will default to scan nmap's top {config.DEFAULT_TOP_PORTS} ports if not sp
         '--protocol', choices=['tcp', 'udp'], default='tcp',
         help='[client] Protocol to request scanning (default: tcp)')
     client_opts.add_argument(
+        '--ip-option', choices=['record_route', 'timestamp', 'router_alert'], default=None,
+        help='[client] IP option for network testing (default: None)'
+    )
+    client_opts.add_argument(
         '--timeout', type=int, default=config.DEFAULT_TIMEOUT,
         metavar='SEC',
         help=f'[client] Per-probe timeout in seconds (default: {config.DEFAULT_TIMEOUT}s)')
@@ -112,6 +116,7 @@ def main():
             "ports": ports,
             "timeout": args.timeout,
             "delay": args.delay,
+            "ip_option": args.ip_option
         }
 
         print(f"Host      : {args.host}:{args.control}")
@@ -119,6 +124,8 @@ def main():
         print(f"Ports     : {len(ports)} ports")
         print(f"Timeout   : {args.timeout}s")
         print(f"Delay     : {args.delay}s")
+        if args.ip_option:
+            print(f"IP option : {args.ip_option}")
 
         from client.listener import connect
         connect(args.host, args.control, scan_config=scan_config)
