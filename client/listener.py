@@ -50,6 +50,7 @@ def _run_session(sock, server_host, scan_config):
     ports     = scan_config.get("ports", [])
     timeout   = scan_config.get("timeout", DEFAULT_TIMEOUT)
     delay     = scan_config.get("delay", DEFAULT_DELAY)
+    ip_option = scan_config.get("ip_option")
 
     send_message(sock, {
         "type": MSG_TYPE_SCAN_REQUEST,
@@ -59,6 +60,7 @@ def _run_session(sock, server_host, scan_config):
         "ports": ports,
         "timeout": timeout,
         "delay": delay,
+        "ip_option": ip_option,
     })
     print(f"[Client] Scan request [{scan_id}]: {direction} {protocol.upper()}, {len(ports)} ports")
 
@@ -81,7 +83,7 @@ def _run_session(sock, server_host, scan_config):
     elif direction == "outbound":
         # Client scans the server and reports back
         print(f"[Client] Running {protocol.upper()} scan toward server...")
-        results = scan_ports(server_host, protocol, ports, timeout=timeout, delay=delay)
+        results = scan_ports(server_host, protocol, ports, timeout=timeout, delay=delay, ip_option=ip_option)
         send_message(sock, {
             "type": MSG_TYPE_RESULT,
             "scan_id": scan_id,

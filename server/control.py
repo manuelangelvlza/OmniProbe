@@ -63,6 +63,7 @@ class ControlSession:
         ports     = msg.get("ports", [])
         timeout   = msg.get("timeout", DEFAULT_TIMEOUT)
         delay     = msg.get("delay", DEFAULT_DELAY)
+        ip_option = msg.get("ip_option")
 
         send_message(self.sock, {
             "type": MSG_TYPE_SCAN_ACK,
@@ -71,7 +72,7 @@ class ControlSession:
 
         if direction == "inbound":
             print(f"[Session {self.client_ip}] Scanning ({protocol.upper()}, {len(ports)} ports)...")
-            results = scan_ports(self.client_ip, protocol, ports, timeout=timeout, delay=delay)
+            results = scan_ports(self.client_ip, protocol, ports, timeout=timeout, delay=delay, ip_option=ip_option)
             send_message(self.sock, {
                 "type": MSG_TYPE_RESULT,
                 "scan_id": scan_id,
