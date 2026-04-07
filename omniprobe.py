@@ -16,10 +16,12 @@ Usage:
 """
 
 import argparse
+import socket
 import sys
 
 from core import config
 from core.ports import parse_port_range, get_nmap_top_ports
+from core.protocol import send_message, recv_message, MSG_TYPE_SCAN_REQUEST, MSG_TYPE_ERROR
 
 
 def build_parser():
