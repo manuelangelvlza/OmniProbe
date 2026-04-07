@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """
-Usage:
-    python omniprobe.py --server <host> [options]
+OmniProbe — Network scanning tool for Consumer Internet Services
 
-Examples:
-    python omniprobe.py --server probe.example.com
-    python omniprobe.py --server 192.168.1.1 --ports 22,80,443
-    python omniprobe.py --server probe.example.com --top 500 --timeout 15
+Main entry point for both client and server modes. Parses command-line arguments.
+
+Usage:
+    # Client: connect to a running OmniProbe server and request a scan
+    python omniprobe.py --client --host probe.example.com
+    python omniprobe.py --client --host 192.168.1.1 --ports 22,80,443
+    python omniprobe.py --client --host probe.example.com --top 500 --timeout 15
+
+    # Server: listen for incoming client connections
+    python omniprobe.py --server
+    python omniprobe.py --server --bind 0.0.0.0 --control 9000
 """
 
 import argparse
@@ -17,116 +23,118 @@ from core import config
 from core.ports import parse_port_range, get_nmap_top_ports
 from core.protocol import send_message, recv_message, MSG_TYPE_SCAN_REQUEST, MSG_TYPE_ERROR
 
-# arg parsing
 
 def build_parser():
-    """Create the CLI argument parser."""
     parser = argparse.ArgumentParser(
         prog='omniprobe',
-        description='Measure inbound TCP reachability through NAT and ISP filtering',
+        description='Network scanning tool for Consumer Internet Services',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
-    # which server to talk to
+    # running mode, client or server (mutually exclusive)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument(
+        '--client', action='store_true',
+        help='Run in client mode (connect to a server)')
+    mode.add_argument(
+        '--server', action='store_true',
+        help='Run in server mode (listen for clients)')
+
     parser.add_argument(
-        '--server', '-s', required=True,
-        metavar='HOST',
-        help='Measurement server hostname or IP address',
-    )
-    parser.add_argument(
-        '--server-port', '-p', type=int, default=config.DEFAULT_SERVER_PORT,
+        '--control', '-c', type=int, default=config.DEFAULT_CONTROL_PORT,
         metavar='PORT',
-        help=f'Measurement server control port (default: {config.DEFAULT_SERVER_PORT})',
-    )
+        help='Control port used by both client and server')
 
-    # pick one method for port selection
-    port_group = parser.add_mutually_exclusive_group()
+    client_opts = parser.add_argument_group(title='client options',
+                                            description=f'''Options when running in client mode. Specifying host IP is required.
+Ports will default to scan nmap's top {config.DEFAULT_TOP_PORTS} ports if not specified.\nProtocol defaults to TCP.''')
+    client_opts.add_argument(
+        '--host', '-H', metavar='HOST',
+        help='[client] Server hostname or IP address to connect to')
+
+    port_group = client_opts.add_mutually_exclusive_group()
     port_group.add_argument(
-        '--ports',
-        metavar='RANGE',
-        help='Ports to test, e.g. "22,80,443" or "1-1024"',
-    )
+        '--ports', metavar='RANGE',
+        help='[client] Ports to request scanning, e.g. "22,80,443" or "1-1024"')
     port_group.add_argument(
         '--top', type=int, default=config.DEFAULT_TOP_PORTS,
         metavar='N',
-        help=f'Use top N most common ports from nmap-services (default: {config.DEFAULT_TOP_PORTS})',
-    )
+        help=f'[client] Use top N most common ports from nmap-services (default: {config.DEFAULT_TOP_PORTS})')
 
-    # Protocol and timeout
-    parser.add_argument(
+    client_opts.add_argument(
         '--protocol', choices=['tcp', 'udp'], default='tcp',
-        help='Protocol to test (default: tcp)',
+        help='[client] Protocol to request scanning (default: tcp)')
+    client_opts.add_argument(
+        '--ip-option', choices=['record_route', 'timestamp', 'router_alert'], default=None,
+        help='[client] IP option for network testing (default: None)'
     )
-    parser.add_argument(
+    client_opts.add_argument(
         '--timeout', type=int, default=config.DEFAULT_TIMEOUT,
         metavar='SEC',
-        help=f'Per-connection timeout in seconds (default: {config.DEFAULT_TIMEOUT})',
-    )
+        help=f'[client] Per-probe timeout in seconds (default: {config.DEFAULT_TIMEOUT}s)')
+    client_opts.add_argument(
+        '--delay', type=float, default=config.DEFAULT_DELAY,
+        metavar='SEC',
+        help=f'[client] Delay between probes in seconds (default: {config.DEFAULT_DELAY}s)')
+
+    # server options
+    server_opts = parser.add_argument_group(title='server options',
+                                            description='''Options when running in server mode.
+By default, the server binds to all interfaces and accepts connections from any client.''')
+    server_opts.add_argument(
+        '--bind', '-b', metavar='ADDRESS', default=config.DEFAULT_ADDRESS,
+        help=f'[server] Address to bind to (default: {config.DEFAULT_ADDRESS})')
+
+    server_opts.add_argument(
+        '--whitelist', '-w', metavar='ADDRESS', nargs='+',
+        help='[server] Whitelist of expected clients IPs (separated by a space); if not set any connection is accepted')
 
     return parser
+
+
+def resolve_ports(args):
+    """Return a sorted list of port numbers based on CLI flags."""
+    if args.ports:
+        return parse_port_range(args.ports)
+    return get_nmap_top_ports(config.NMAP_SERVICES_PATH, top_n=args.top)
 
 
 def main():
     parser = build_parser()
     args = parser.parse_args()
 
-    print(f'Server     : {args.server}:{args.server_port}')
-    print(f'Protocol   : {args.protocol}')
-    print(f'Timeout    : {args.timeout}s')
+    if args.client:
+        if not args.host:
+            parser.error("--host is required in client mode")
 
-    if args.ports:
-        print(f'Ports      : {args.ports}')
-    else:
-        print(f'Top ports  : {args.top}')
+        ports = resolve_ports(args)
+        if not ports:
+            print("Error: could not resolve port list.", file=sys.stderr)
+            sys.exit(1)
 
-    # Resolve port list
-    if args.ports:
-        ports = parse_port_range(args.ports)
-    else:
-        ports = get_nmap_top_ports(filepath=config.NMAP_SERVICES_PATH, top_n=args.top)
-
-    if not ports:
-        print('Error: No valid ports resolved. Exiting.', file=sys.stderr)
-        sys.exit(1)
-
-    print(f'Ports      : {len(ports)} ports resolved')
-
-    # Connect to measurement server
-    print(f'Connecting to {args.server}:{args.server_port}...')
-    try:
-        sock = socket.create_connection((args.server, args.server_port), timeout=args.timeout)
-    except (socket.timeout, ConnectionRefusedError, OSError) as e:
-        print(f'Error: Could not connect to server: {e}', file=sys.stderr)
-        sys.exit(1)
-
-    print('Connected.')
-
-    # Send scan request & receive results
-    try:
-        request = {
-            'type': MSG_TYPE_SCAN_REQUEST,
-            'protocol': args.protocol,
-            'ports': ports,
-            'timeout': args.timeout,
+        scan_config = {
+            "direction": "inbound",
+            "protocol": args.protocol,
+            "ports": ports,
+            "timeout": args.timeout,
+            "delay": args.delay,
+            "ip_option": args.ip_option
         }
-        if not send_message(sock, request):
-            print('Error: Failed to send scan request.', file=sys.stderr)
-            sys.exit(1)
 
-        print('Scan request sent. Waiting for results...')
+        print(f"Host      : {args.host}:{args.control}")
+        print(f"Protocol  : {args.protocol.upper()}")
+        print(f"Ports     : {len(ports)} ports")
+        print(f"Timeout   : {args.timeout}s")
+        print(f"Delay     : {args.delay}s")
+        if args.ip_option:
+            print(f"IP option : {args.ip_option}")
 
-        response = recv_message(sock)
-        if response is None:
-            print('Error: No response received from server.', file=sys.stderr)
-            sys.exit(1)
+        from client.listener import connect
+        connect(args.host, args.control, scan_config=scan_config)
 
-        if response.get('type') == MSG_TYPE_ERROR:
-            print(f'Server error: {response.get("message", "unknown error")}', file=sys.stderr)
-            sys.exit(1)
-
-        print('Results:')
-        print(response)
-    finally:
-        sock.close()
+    elif args.server:
+        from server.listener import start
+        start(host=args.bind, port=args.control, whitelist=args.whitelist)
 
 
 if __name__ == '__main__':

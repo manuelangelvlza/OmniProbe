@@ -1,0 +1,102 @@
+import socket
+import platform
+import uuid
+from core.config import DEFAULT_CONTROL_PORT, DEFAULT_TIMEOUT, DEFAULT_DELAY, DEFAULT_PROTOCOL
+from core.protocol import (
+    send_message, recv_message,
+    MSG_TYPE_CONNECT, MSG_TYPE_CONNECT_ACK,
+    MSG_TYPE_SCAN_REQUEST, MSG_TYPE_SCAN_ACK,
+    MSG_TYPE_RESULT, MSG_TYPE_ERROR,
+)
+from core.scanner import scan_ports
+
+
+def connect(server_host, server_port=DEFAULT_CONTROL_PORT, scan_config=None):
+    """
+    Connect to OmniProbe server, complete the handshake (sending scan
+    preferences), process scan requests until the server closes the connection.
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((server_host, server_port))
+    print(f"[Client] Connected to {server_host}:{server_port}")
+
+    try:
+        _run_session(sock, server_host, scan_config or {})
+    finally:
+        sock.close()
+        print("[Client] Disconnected.")
+
+
+def _run_session(sock, server_host, scan_config):
+    # --- Handshake: client initiates ---
+    send_message(sock, {
+        "type": MSG_TYPE_CONNECT,
+        "info": {
+            "os": platform.system(),
+            "os_version": platform.release(),
+        },
+    })
+
+    msg = recv_message(sock)
+    if not msg or msg.get("type") != MSG_TYPE_CONNECT_ACK:
+        print("[Client] Expected CONNECT_ACK from server.")
+        return
+    print("[Client] Handshake complete.")
+
+    # --- Send scan request ---
+    scan_id   = str(uuid.uuid4())[:8]
+    direction = scan_config.get("direction", "inbound")
+    protocol  = scan_config.get("protocol", DEFAULT_PROTOCOL)
+    ports     = scan_config.get("ports", [])
+    timeout   = scan_config.get("timeout", DEFAULT_TIMEOUT)
+    delay     = scan_config.get("delay", DEFAULT_DELAY)
+    ip_option = scan_config.get("ip_option")
+
+    send_message(sock, {
+        "type": MSG_TYPE_SCAN_REQUEST,
+        "scan_id": scan_id,
+        "direction": direction,
+        "protocol": protocol,
+        "ports": ports,
+        "timeout": timeout,
+        "delay": delay,
+        "ip_option": ip_option,
+    })
+    print(f"[Client] Scan request [{scan_id}]: {direction} {protocol.upper()}, {len(ports)} ports")
+
+    # --- Wait for SCAN_ACK ---
+    ack = recv_message(sock)
+    if not ack or ack.get("type") != MSG_TYPE_SCAN_ACK:
+        print(f"[Client] Expected SCAN_ACK, got: {ack}")
+        return
+
+    if direction == "inbound":
+        # Server scans and sends the result
+        msg = recv_message(sock)
+        if not msg:
+            print("[Client] Server disconnected before sending results.")
+        elif msg.get("type") == MSG_TYPE_RESULT:
+            _print_results(msg)
+        elif msg.get("type") == MSG_TYPE_ERROR:
+            print(f"[Client] Server error: {msg.get('message')}")
+
+    elif direction == "outbound":
+        # Client scans the server and reports back
+        print(f"[Client] Running {protocol.upper()} scan toward server...")
+        results = scan_ports(server_host, protocol, ports, timeout=timeout, delay=delay, ip_option=ip_option)
+        send_message(sock, {
+            "type": MSG_TYPE_RESULT,
+            "scan_id": scan_id,
+            "direction": direction,
+            "results": results,
+        })
+        _print_results({"scan_id": scan_id, "direction": direction, "results": results})
+
+
+def _print_results(msg):
+    results  = msg.get("results", [])
+    scan_id  = msg.get("scan_id", "?")
+    direction = msg.get("direction", "?")
+    print(f"\n  Scan [{scan_id}] — {direction}:")
+    for r in results:
+        print(f"    {r['protocol'].upper()}/{r['port']:<5}  {r['state']}")
