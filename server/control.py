@@ -2,18 +2,7 @@ import uuid
 from core.protocol import * # type: ignore
 from server.scanner import scan_ports
 from core.config import * # type: ignore
-import socket
 
-def get_public_ipv6():
-      s = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
-      try:
-          # Connect a UDP socket to a public IPv6 address — OS fills in the source
-          s.connect(("2001:4860:4860::8888", 80))
-          return s.getsockname()[0]
-      except Exception:
-          return None
-      finally:
-          s.close()
 
 class ControlSession:
     """
@@ -26,11 +15,12 @@ class ControlSession:
     5. Connection closes when the session ends.
     """
 
-    def __init__(self, sock, addr):
+    def __init__(self, sock, addr, server_ipv6=None):
         self.sock = sock
         self.client_ip = addr[0]
         self.client_port = addr[1]
         self.client_info = {}
+        self.server_ipv6 = server_ipv6
 
     def run(self):
         try:
@@ -57,7 +47,7 @@ class ControlSession:
         send_message(self.sock, {
             "type": MSG_TYPE_CONNECT_ACK,
             "version": "0.1",
-            "server_ipv6": get_public_ipv6(),
+            "server_ipv6": self.server_ipv6,
         })
 
         print(f"[Session {self.client_ip}] Handshake OK. OS: {self.client_info.get('os', '?')}")

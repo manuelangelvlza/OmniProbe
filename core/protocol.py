@@ -1,4 +1,5 @@
 import json
+import socket
 import struct
 
 # standard message types
@@ -8,6 +9,22 @@ MSG_TYPE_SCAN_REQUEST = "SCAN_REQUEST"
 MSG_TYPE_SCAN_ACK = "SCAN_ACK"
 MSG_TYPE_RESULT = "RESULT"
 MSG_TYPE_ERROR = "ERROR"
+MSG_TYPE_IPV6_PING = "IPV6_PING"
+MSG_TYPE_IPV6_PONG = "IPV6_PONG"
+
+def get_public_ipv6():
+    """
+    Returns this machine's public IPv6 address, or None if unavailable.
+    Uses a UDP connect trick: no packets sent, OS selects the source address.
+    """
+    s = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+    try:
+        s.connect(("2001:4860:4860::8888", 80))  # Google IPv6 DNS — nothing is sent
+        return s.getsockname()[0]
+    except Exception:
+        return None
+    finally:
+        s.close()
 
 def send_message(sock, message_dict):
     """
