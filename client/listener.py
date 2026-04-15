@@ -41,6 +41,9 @@ def _run_session(sock, server_host, scan_config):
     if not msg or msg.get("type") != MSG_TYPE_CONNECT_ACK:
         print("[Client] Expected CONNECT_ACK from server.")
         return
+    msg_version = msg.get("version", "?")
+    server_ipv6 = msg.get("server_ipv6")
+    print(f"[Client] Server version: {msg_version}, IPv6: {server_ipv6 or 'N/A'}")
     print("[Client] Handshake complete.")
 
     # --- Send scan request ---
@@ -51,6 +54,7 @@ def _run_session(sock, server_host, scan_config):
     timeout   = scan_config.get("timeout", DEFAULT_TIMEOUT)
     delay     = scan_config.get("delay", DEFAULT_DELAY)
     ip_option = scan_config.get("ip_option")
+    ipv6     = scan_config.get("ipv6")
 
     send_message(sock, {
         "type": MSG_TYPE_SCAN_REQUEST,
@@ -61,6 +65,7 @@ def _run_session(sock, server_host, scan_config):
         "timeout": timeout,
         "delay": delay,
         "ip_option": ip_option,
+        "ipv6": ipv6,
     })
     print(f"[Client] Scan request [{scan_id}]: {direction} {protocol.upper()}, {len(ports)} ports")
 
