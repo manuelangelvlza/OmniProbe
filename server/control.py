@@ -149,5 +149,4 @@ class ControlSession:
 
         print(f"\n  IP Options Support:")
         for opt_name, opt_data in options.items():
-            status = "supported" if opt_data.get("supported") else "blocked"
-            print(f"    {opt_name:<16} — {status}")
+            print(f"    {opt_name:<16} — {opt_data.get('support', 'unknown')}")

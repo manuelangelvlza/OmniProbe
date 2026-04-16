@@ -104,18 +104,29 @@ def scan_with_ip_options(target_ip, protocol, ports, ip_options, timeout=DEFAULT
         print(f"  Running scan with {opt_name}...")
         results = scan_ports(target_ip, protocol, ports, timeout=timeout, delay=delay, ip_option=opt_name)
 
-        # Determine support: option is supported if at least one port that was
-        # open/closed in baseline stays open/closed with the option
-        supported = False
+        # Determine support:
+        #   supported    — at least one port got a response (open/closed) with the option
+        #   blocked      — a reachable baseline port (open/closed) became filtered
+        #   inconclusive — everything filtered in both baseline and option scan
+        has_response = False
+        has_blocked = False
         for r in results:
             base_state = baseline_states.get(r["port"])
-            if base_state in ("open", "closed") and r["state"] in ("open", "closed"):
-                supported = True
-                break
+            if r["state"] in ("open", "closed"):
+                has_response = True
+            if base_state in ("open", "closed") and r["state"] == "filtered":
+                has_blocked = True
+
+        if has_response:
+            support = "supported"
+        elif has_blocked:
+            support = "blocked"
+        else:
+            support = "inconclusive"
 
         options_results[opt_name] = {
             "results": results,
-            "supported": supported,
+            "support": support,
         }
 
     return {
