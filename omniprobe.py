@@ -64,8 +64,8 @@ Ports will default to scan nmap's top {config.DEFAULT_TOP_PORTS} ports if not sp
         '--protocol', choices=['tcp', 'udp'], default='tcp',
         help='[client] Protocol to request scanning (default: tcp)')
     client_opts.add_argument(
-        '--ip-option', choices=['record_route', 'timestamp', 'router_alert'], default=None,
-        help='[client] IP option for network testing (default: None)'
+        '--ip-option', choices=['record_route', 'timestamp', 'router_alert', 'all'], default=None,
+        help='[client] IP option for network testing; use "all" to test every option (default: None)'
     )
     client_opts.add_argument(
         '--ipv6', action='store_true', default=False,
