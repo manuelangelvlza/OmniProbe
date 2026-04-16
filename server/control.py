@@ -15,11 +15,12 @@ class ControlSession:
     5. Connection closes when the session ends.
     """
 
-    def __init__(self, sock, addr):
+    def __init__(self, sock, addr, server_ipv6=None):
         self.sock = sock
         self.client_ip = addr[0]
         self.client_port = addr[1]
         self.client_info = {}
+        self.server_ipv6 = server_ipv6
 
     def run(self):
         try:
@@ -46,6 +47,7 @@ class ControlSession:
         send_message(self.sock, {
             "type": MSG_TYPE_CONNECT_ACK,
             "version": "0.1",
+            "server_ipv6": self.server_ipv6,
         })
 
         print(f"[Session {self.client_ip}] Handshake OK. OS: {self.client_info.get('os', '?')}")

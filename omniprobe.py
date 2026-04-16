@@ -68,6 +68,9 @@ Ports will default to scan nmap's top {config.DEFAULT_TOP_PORTS} ports if not sp
         help='[client] IP option for network testing (default: None)'
     )
     client_opts.add_argument(
+        '--ipv6', action='store_true', default=False,
+        help='[client] Test for IPv6 support (default: False)')
+    client_opts.add_argument(
         '--timeout', type=int, default=config.DEFAULT_TIMEOUT,
         metavar='SEC',
         help=f'[client] Per-probe timeout in seconds (default: {config.DEFAULT_TIMEOUT}s)')
@@ -117,7 +120,8 @@ def main():
             "ports": ports,
             "timeout": args.timeout,
             "delay": args.delay,
-            "ip_option": args.ip_option
+            "ip_option": args.ip_option,
+            "ipv6": args.ipv6,
         }
 
         print(f"Host      : {args.host}:{args.control}")
@@ -127,6 +131,8 @@ def main():
         print(f"Delay     : {args.delay}s")
         if args.ip_option:
             print(f"IP option : {args.ip_option}")
+        if args.ipv6:
+            print(f"IPv6 Test : Enabled")
 
         from client.listener import connect
         connect(args.host, args.control, scan_config=scan_config)
