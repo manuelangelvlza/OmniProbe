@@ -64,6 +64,34 @@ All probing is done with scapy raw sockets (`core/scanner.py`).
 
 Optional inter-probe delay (`--delay`) paces the probes to avoid triggering firewalls (similar to nmap's `-T` timing flag).
 
+### 4. IP Options testing
+
+OmniProbe can test whether the network path supports specific IP options by comparing against a baseline scan. Use `--ip-option` with a specific option or `all` to test every option in one run.
+
+A baseline scan (no IP options) runs first, then each selected option is tested. Results are compared per-port to determine support:
+
+| Baseline | With option | Verdict |
+|----------|------------|---------|
+| open | open | **supported** — option passed through, service responded normally |
+| open | closed | **supported** — option passed through, host rejected at application level |
+| open | filtered | **blocked** — option caused packet to be dropped in transit |
+| closed | closed | **supported** — option passed through, host sent RST |
+| closed | open | **supported** — option passed through |
+| closed | filtered | **blocked** — option caused packet to be dropped in transit |
+| filtered | open | **supported** — option got a response where baseline did not |
+| filtered | closed | **supported** — got a definitive response, likely reached destination |
+| filtered | filtered | **inconclusive** — cannot determine if option or firewall caused the drop |
+
+Supported IP options: `record_route`, `timestamp`, `router_alert`.
+
+```bash
+# Test a single IP option
+sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option router_alert
+
+# Test all IP options in one run
+sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option all
+```
+
 ## Usage
 
 The side crafting and sending raw packets (server for inbound scans, client for outbound scans) requires root privileges.
