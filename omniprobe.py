@@ -64,16 +64,15 @@ Ports will default to scan nmap's top {config.DEFAULT_TOP_PORTS} ports if not sp
         '--protocol', choices=['tcp', 'udp'], default='tcp',
         help='[client] Protocol to request scanning (default: tcp)')
     client_opts.add_argument(
-        '--ip-option', choices=['record_route', 'timestamp', 'router_alert'], default=None,
-        help='[client] IP option for network testing (default: None)'
+        '--ip-option', choices=['record_route', 'timestamp', 'router_alert', 'all'], default=None,
+        help='[client] IP option for network testing; use "all" to test every option (default: None)'
     )
     client_opts.add_argument(
         '--ipv6', action='store_true', default=False,
         help='[client] Test for IPv6 support (default: False)')
     client_opts.add_argument(
-        '--timeout', type=int, default=config.DEFAULT_TIMEOUT,
-        metavar='SEC',
-        help=f'[client] Per-probe timeout in seconds (default: {config.DEFAULT_TIMEOUT}s)')
+        '--timeout', default='auto', metavar='SEC|auto',
+        help='[client] Per-probe timeout in seconds, or "auto" to calculate from first handshake RTT (default: auto)')
     client_opts.add_argument(
         '--delay', type=float, default=config.DEFAULT_DELAY,
         metavar='SEC',
@@ -114,25 +113,38 @@ def main():
             print("Error: could not resolve port list.", file=sys.stderr)
             sys.exit(1)
 
+        if args.timeout == 'auto':
+            timeout = 'auto'
+        else:
+            try:
+                timeout = float(args.timeout)
+            except ValueError:
+                parser.error("--timeout must be a float or 'auto'")
+        
+        if args.delay < 1.0 and args.protocol == 'udp':
+            print("Warning: Delays under 1 second may cause unreliable results with UDP scans, defaulting to 1s.")
+            args.delay = 1.0
+
         scan_config = {
             "direction": "inbound",
             "protocol": args.protocol,
             "ports": ports,
-            "timeout": args.timeout,
+            "timeout": timeout,
             "delay": args.delay,
             "ip_option": args.ip_option,
             "ipv6": args.ipv6,
         }
-
+        print(f"=== Scan Config  ===")
         print(f"Host      : {args.host}:{args.control}")
         print(f"Protocol  : {args.protocol.upper()}")
         print(f"Ports     : {len(ports)} ports")
-        print(f"Timeout   : {args.timeout}s")
+        print(f"Timeout   : {'auto (Max[4RTT | 0.5s])' if timeout == 'auto' else f'{timeout}s'}")
         print(f"Delay     : {args.delay}s")
         if args.ip_option:
             print(f"IP option : {args.ip_option}")
         if args.ipv6:
             print(f"IPv6 Test : Enabled")
+        print(f"===================")
 
         from client.listener import connect
         connect(args.host, args.control, scan_config=scan_config)

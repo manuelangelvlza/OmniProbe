@@ -7,7 +7,7 @@ DEFAULT_CONTROL_PORT = 9000
 DEFAULT_ADDRESS = '0.0.0.0'
 
 # Scan defaults
-DEFAULT_TIMEOUT = 10        # seconds per connection attempt
+FALLBACK_TIMEOUT = 10.0        # seconds per connection attempt
 DEFAULT_TOP_PORTS = 100     # top N nmap ports when --top is used
 # delay between scan attempts in seconds (if the probing is done to fast some firewalls may drop packets), similar to nmap's timing (-T option)
 DEFAULT_DELAY: float = .1
