@@ -1,7 +1,8 @@
 import socket
 import platform
+import time
 import uuid
-from core.config import DEFAULT_CONTROL_PORT, DEFAULT_TIMEOUT, DEFAULT_DELAY, DEFAULT_PROTOCOL
+from core.config import DEFAULT_CONTROL_PORT, DEFAULT_DELAY, DEFAULT_PROTOCOL
 from core.protocol import (
     send_message, recv_message,
     get_public_ipv6,
@@ -33,6 +34,7 @@ def _run_session(sock, server_host, server_port, scan_config):
     client_ipv6 = get_public_ipv6()
 
     # --- Handshake: client initiates ---
+    t0 = time.monotonic()
     send_message(sock, {
         "type": MSG_TYPE_CONNECT,
         "info": {
@@ -43,14 +45,22 @@ def _run_session(sock, server_host, server_port, scan_config):
     })
 
     msg = recv_message(sock)
+    rtt = time.monotonic() - t0
+
     if not msg or msg.get("type") != MSG_TYPE_CONNECT_ACK:
         print("[Client] Expected CONNECT_ACK from server.")
         return
     msg_version = msg.get("version", "?")
     server_ipv6 = msg.get("server_ipv6")
-    print(
-        f"[Client] Server version: {msg_version}, IPv6: {server_ipv6 or 'N/A'}")
+    print(f"[Client] Server version: {msg_version}, IPv6: {server_ipv6 or 'N/A'}")
     print("[Client] Handshake complete.")
+
+    # Calculate dynamic timeout
+    if scan_config.get("timeout") == "auto":
+        timeout = max(rtt * 4, 0.5)
+        print(f"[Client] RTT {rtt*1000:.0f}ms — timeout set to {timeout:.2f}s")
+    else:
+        timeout = scan_config.get("timeout")
 
     # --- IPv6 connectivity test (only when --ipv6 flag is set) ---
     if scan_config.get("ipv6"):
@@ -61,7 +71,6 @@ def _run_session(sock, server_host, server_port, scan_config):
     direction = scan_config.get("direction", "inbound")
     protocol = scan_config.get("protocol", DEFAULT_PROTOCOL)
     ports = scan_config.get("ports", [])
-    timeout = scan_config.get("timeout", DEFAULT_TIMEOUT)
     delay = scan_config.get("delay", DEFAULT_DELAY)
     ip_option = scan_config.get("ip_option")
     ipv6 = scan_config.get("ipv6")

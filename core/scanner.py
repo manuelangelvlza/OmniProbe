@@ -1,5 +1,5 @@
 from time import sleep
-from core.config import DEFAULT_TIMEOUT, DEFAULT_DELAY
+from core.config import FALLBACK_TIMEOUT, DEFAULT_DELAY
 from scapy.all import IP, TCP, UDP, ICMP, sr1, send, RandShort, IPOption_RR, IPOption_Timestamp, IPOption_Router_Alert  # type: ignore
 import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
@@ -45,7 +45,7 @@ def format_option_data(ip_option, data):
     return str(data)
 
 
-def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAULT_DELAY, ip_option=None):
+def scan_ports(target_ip, protocol, ports, timeout=FALLBACK_TIMEOUT, delay=DEFAULT_DELAY, ip_option=None):
     """
     Scan a list of ports on target_ip.
     Returns a list of dicts: {port, protocol, state, ip_option_data (optional)}.
@@ -80,7 +80,7 @@ def scan_ports(target_ip, protocol, ports, timeout=DEFAULT_TIMEOUT, delay=DEFAUL
     return results
 
 
-def scan_with_ip_options(target_ip, protocol, ports, ip_options, timeout=DEFAULT_TIMEOUT, delay=DEFAULT_DELAY):
+def scan_with_ip_options(target_ip, protocol, ports, ip_options, timeout=FALLBACK_TIMEOUT, delay=DEFAULT_DELAY):
     """
     Run a baseline scan (no IP options), then scan with each specified IP option.
     Compares results against baseline to determine support.
