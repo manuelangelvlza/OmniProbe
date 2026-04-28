@@ -64,7 +64,7 @@ class ControlSession:
         direction = msg.get("direction")
         protocol  = msg.get("protocol")
         ports     = msg.get("ports", [])
-        timeout   = msg.get("timeout", DEFAULT_TIMEOUT)
+        timeout   = msg.get("timeout", FALLBACK_TIMEOUT)
         delay     = msg.get("delay", DEFAULT_DELAY)
         ip_option = msg.get("ip_option")
 
