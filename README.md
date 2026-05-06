@@ -5,7 +5,7 @@ Network scanning tool for consumer ISP networks.
 ## Overview
 
 OmniProbe is a two-instance model program to test a consumer ISP network.
-It's designed to reveal what ports/protocols are blocked or filtered by default by an ISP, both inbound and outbound. As well as if the consumer network have support for IP options and IPV6 **(To be implemented)**.
+It's designed to reveal what ports/protocols are blocked or filtered by default by an ISP (both inbound and outbound), whether IP options survive the path between client and server, and whether end-to-end IPv6 connectivity is available from the consumer network.
 
 - **Client** — runs on any machine inside the consumer network that is going to be tested.
 - **Server** — runs outside the ISP network (On a cloud server ideally).
@@ -92,6 +92,37 @@ sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option 
 sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option all
 ```
 
+### 5. IPv6 connectivity test
+
+OmniProbe can test whether end-to-end IPv6 reachability exists between the client and the server during a scan session. The test is enabled by passing the `--ipv6` flag on the client.
+
+How it works:
+
+- Both endpoints discover their own public IPv6 address using a UDP-connect trick (the OS picks a source address for a route to a well-known IPv6 host; no packet is actually sent).
+- The two addresses are exchanged over the IPv4 control channel during the handshake.
+- If both sides have a public IPv6 address, the client opens an `AF_INET6` TCP socket to the server's IPv6 address and exchanges an `IPV6_PING` / `IPV6_PONG` message pair over IPv6.
+- A successful exchange indicates that an end-to-end v6 path exists between the client's network and the server. A failure (timeout, connection refused, no route to host) means the v6 path is broken somewhere on the route. If either side lacks a public IPv6 address, the test is skipped and the reason is reported.
+
+```
+Client                            Server
+  |                                 |
+  |---- (IPv6 addr in CONNECT) ---->|
+  |<--- (IPv6 addr in CONNECT_ACK)--|
+  |                                 |
+  |==== open AF_INET6 TCP ==========|   (only if both sides have v6)
+  |---- IPV6_PING ----------------->|
+  |<--- IPV6_PONG ------------------|
+  |==== close AF_INET6 TCP =========|
+  |                                 |
+```
+
+This test reflects IPv6 *deployment* on the consumer network: whether the ISP has assigned the client a public IPv6 address at all, and whether that address can reach the open IPv6 Internet. In our measurement runs, IPv6 was available on residential ISPs that have deployed v6 (e.g., Spectrum) and unavailable on most public wifi, small-town, university, and business networks tested. The IPv6 feature is best understood as a proof-of-concept connectivity check; it does not test v6-specific behaviors such as extension header survival, ICMPv6 filtering, or fragmentation handling.
+
+```bash
+# Add an IPv6 connectivity test alongside the port scan
+sudo python3 omniprobe.py --client --host <server-ip> --ipv6
+```
+
 ## Usage
 
 The side crafting and sending raw packets (server for inbound scans, client for outbound scans) requires root privileges.
@@ -107,21 +138,51 @@ python3 omniprobe.py --client --host <server-ip>
 
 # Client — custom port list, UDP, slower timing
 python3 omniprobe.py --client --host <server-ip> --ports 53,67,123,161 --protocol udp --delay 0.5
+
+# Client — full session: TCP scan + all IP options + IPv6 connectivity test
+sudo python3 omniprobe.py --client --host <server-ip> --top 500 --ip-option all --ipv6
 ```
 
 ## File layout
 
 ```
-omniprobe.py        # entry point, argument parsing, launches client or server
-core/
-  config.py         # shared config constants
-  protocol.py       # message types and framed JSON messaging
-  scanner.py        # scapy-based TCP SYN and UDP scanning
-  ports.py          # port range parsing and nmap-services file top-N selection
-server/
-  listener.py       # TCP server — accepts connections, spawns ControlSession threads
-  control.py        # ControlSession — handles handshake, responds and executes scan requests
-  scanner.py        # re-exports core.scanner.scan_ports
-client/
-  listener.py       # connects to server, initiates handshake and sends scan requests
+omniprobe.py            # entry point: argument parsing, launches client or server
+README.md
+LICENSE
+
+core/                   # shared logic used by both client and server
+  __init__.py
+  config.py             # shared config constants (default ports, timeouts, paths)
+  protocol.py           # message types, framed JSON messaging, IPv6 address discovery
+  scanner.py            # scapy-based TCP SYN / UDP scanning, IP-option-bearing probes,
+                        # and the differential IP options test (scan_with_ip_options)
+  ports.py              # port range parsing and nmap-services top-N selection
+
+server/                 # server-side: listens for clients, executes inbound scans
+  __init__.py
+  listener.py           # TCP server: accepts connections, spawns ControlSession threads
+  control.py            # ControlSession: handshake, scan dispatch, IPv6 ping/pong,
+                        # response framing and result return
+  scanner.py            # thin re-export of core.scanner.scan_ports
+
+client/                 # client-side: connects to a server and requests scans
+  __init__.py
+  listener.py           # connects to server, performs handshake, sends scan requests,
+                        # runs IPv6 connectivity test, and renders per-port results
+
+data/
+  nmap-services         # Nmap services file used to select the top-N most common ports
+
+results/                # session logs from the six networks tested in our paper
+  cox-tcp-72_206_92_24_SD-CA.txt
+  cox-udp-72_206_92_24_SD-CA.txt
+  lvl3-tcp-64-157-159-170_SD-CA.txt
+  lvl3-udp-64-157-159-179_SD-CA.txt
+  att-tcp_Parsons-KS.txt
+  att-udp_Parsons-KS.txt
+  results_columbia_tcp.txt
+  results_columbia_udp.txt
+  spectrum-tcp_74-71-2-248_NY.txt
+  granite telecoms-tcp-104-218-183-194.txt
+  granite telecoms-udp-104-218-183-194.txt
 ```
