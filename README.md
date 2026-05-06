@@ -198,3 +198,6 @@ results/                # session logs from the six networks tested in our paper
   granite telecoms-tcp-104-218-183-194.txt
   granite telecoms-udp-104-218-183-194.txt
 ```
+
+#### AI use dislosure
+Limited parts of the codebase made use of Generative AI (Anthropic's Claude) to aid in the development process. All code was designed, reviewed, tested, and documented by the authors.
