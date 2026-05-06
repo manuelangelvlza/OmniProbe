@@ -1,5 +1,7 @@
 # OmniProbe
 
+Authors: Jary Tolentino, Manuel Valenzuela
+
 Network scanning tool for consumer ISP networks.
 
 ## Overview
@@ -14,8 +16,7 @@ The client connects to the server over a persistent TCP port, we may call this, 
 All communication is done via the ***control channel***: what to scan, how to scan (timeout & delay) and results, the exchange is done with length-prefixed JSON messages.
 The ***control channel*** is used for coordination and reporting only as especified in (`core/protocol.py`). 
 
-The actual port scanning is done with scapy raw sockets (`core/scanner.py`), which requires root privileges for crafting and sending raw packets. 
-Therefore, OmniProbe (viewed from client perspective): requires root privileges on the server side for `inbound` scans and on the client side for `outbound` scans. The default scan direction is `inbound` (server scans client), which is the most common use case for testing ISP filtering of incoming traffic to the consumer network.
+For the port scanning: packets are crafted with the scapy library (`core/scanner.py`). Crafting and seding raw packets requires root privileges, therefore the **server side must be run with elevated privileges**.
 
 ## How it works
 
@@ -51,22 +52,43 @@ Client                            Server
   |                                 |
 ```
 
-**Inbound** (`direction=inbound`): the server sends raw probes to the client's IP.
+Inbound: the server sends raw probes to the client's IP.
 
-**Outbound** (`direction=outbound`): the client sends raw probes to the server's IP.
 
-### 3. Port scanning (scapy)
+### 3. Port scanning
 
 All probing is done with scapy raw sockets (`core/scanner.py`).
 
 - **TCP** — A SYN is sent; a SYN-ACK means `open` (RST sent to close it), a RST means `closed`, no response or ICMP unreachable means `filtered`.
 - **UDP** — An empty UDP datagram is sent; UDP reply means `open`, an ICMP port-unreachable means `closed`, no response means `open|filtered`.
 
-Optional inter-probe delay (`--delay`) paces the probes to avoid triggering firewalls (similar to nmap's `-T` timing flag).
+Use `--protocol tcp` or `--protocol udp` to select the protocol (default: `tcp`).
+
+Ports can be specified in several ways: 
+- `--ports 22,80,443` for a comma-separated list.
+- `--ports 1-1024` for a range.
+- `--top N` to use the top N ports from the nmap-services dataset (default: top 100).
+
+**Inter-probe delay** (`--delay`) paces the probes to avoid triggering firewalls (deafult TCP = 0.1s, default for UDP = 1s).
+
+**Timeout** (`--timeout`) controls how long the sender waits for a response before flagging the port as `filtered`. The default timeout is RTT-derived with `max(0.5s, 4 * RTT)`. The RTT is calculated during the control channel handshake with the `CONNECT` - `CONNECT_ACK` exchange.
+
+> A copy of the nmap-services file is included in `data/nmap-services`. File may be updated or modified but should maintain the same format.
 
 ### 4. IP Options testing
 
-OmniProbe can test whether the network path supports specific IP options by comparing against a baseline scan. Use `--ip-option` with a specific option or `all` to test every option in one run.
+OmniProbe can test whether the network path supports specific IP options by comparing against a baseline scan.
+Use `--ip-option <option>` for a specific option, or `--ip-option all` to test all options in a single scan.
+
+Supported IP options: `record_route`, `timestamp`, `router_alert`.
+
+```bash
+# Test a single IP option
+sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option router_alert
+
+# Test all IP options in one run
+sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option all
+```
 
 A baseline scan (no IP options) runs first, then each selected option is tested. Results are compared per-port to determine support:
 
@@ -82,23 +104,13 @@ A baseline scan (no IP options) runs first, then each selected option is tested.
 | filtered | closed | **supported** — got a definitive response, likely reached destination |
 | filtered | filtered | **inconclusive** — cannot determine if option or firewall caused the drop |
 
-Supported IP options: `record_route`, `timestamp`, `router_alert`.
-
-```bash
-# Test a single IP option
-sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option router_alert
-
-# Test all IP options in one run
-sudo python3 omniprobe.py --client --host <server-ip> --ports 22,80 --ip-option all
-```
-
 ### 5. IPv6 connectivity test
 
 OmniProbe can test whether end-to-end IPv6 reachability exists between the client and the server during a scan session. The test is enabled by passing the `--ipv6` flag on the client.
 
 How it works:
 
-- Both endpoints discover their own public IPv6 address using a UDP-connect trick (the OS picks a source address for a route to a well-known IPv6 host; no packet is actually sent).
+- The server discovers its own public IPv6 address at startup and sends it to the client in `CONNECT_ACK`. The client discovers its own IPv6 address to verify it has one before attempting the test.
 - The two addresses are exchanged over the IPv4 control channel during the handshake.
 - If both sides have a public IPv6 address, the client opens an `AF_INET6` TCP socket to the server's IPv6 address and exchanges an `IPV6_PING` / `IPV6_PONG` message pair over IPv6.
 - A successful exchange indicates that an end-to-end v6 path exists between the client's network and the server. A failure (timeout, connection refused, no route to host) means the v6 path is broken somewhere on the route. If either side lacks a public IPv6 address, the test is skipped and the reason is reported.
@@ -125,15 +137,15 @@ sudo python3 omniprobe.py --client --host <server-ip> --ipv6
 
 ## Usage
 
-The side crafting and sending raw packets (server for inbound scans, client for outbound scans) requires root privileges.
+The server side execution requires root privileges.
 
-Example for an inbound scan.
+Examples:
 
 ```bash
 # Server — bind on all interfaces accept any client (no white-list)
 sudo python3 omniprobe.py --server
 
-# Client — connect and request inbound TCP scan of the top 100 ports with 10s timeout and .1s delay between probes
+# Client — connect and request inbound TCP scan of the top 100 ports
 python3 omniprobe.py --client --host <server-ip>
 
 # Client — custom port list, UDP, slower timing
