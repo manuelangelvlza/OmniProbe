@@ -1,0 +1,831 @@
+=== Scan Config  ===
+Host      : 34.41.254.80:9000
+Protocol  : TCP
+Ports     : 200 ports
+Timeout   : auto (Max[4RTT | 0.5s])
+Delay     : 0.1s
+IP option : all
+IPv6 Test : Enabled
+===================
+[Client] Connected to 34.41.254.80:9000
+[Client] Server version: 0.1, IPv6: 2600:1900:4000:1746::
+[Client] Handshake complete.
+[Client] RTT 164ms — timeout set to 0.65s
+[Client] IPv6 test: skipped — no public IPv6 on this machine.
+[Client] Scan request [3b187b16]: inbound TCP, 200 ports
+
+  Scan [3b187b16] — inbound:
+
+  Baseline (no IP options):
+    TCP/7      filtered
+    TCP/9      filtered
+    TCP/13     filtered
+    TCP/17     filtered
+    TCP/19     filtered
+    TCP/21     filtered
+    TCP/22     filtered
+    TCP/23     filtered
+    TCP/25     filtered
+    TCP/26     filtered
+    TCP/37     filtered
+    TCP/42     filtered
+    TCP/49     filtered
+    TCP/53     filtered
+    TCP/67     filtered
+    TCP/68     filtered
+    TCP/69     filtered
+    TCP/79     filtered
+    TCP/80     filtered
+    TCP/81     filtered
+    TCP/88     filtered
+    TCP/106    filtered
+    TCP/110    filtered
+    TCP/111    filtered
+    TCP/113    filtered
+    TCP/120    filtered
+    TCP/123    filtered
+    TCP/135    filtered
+    TCP/136    filtered
+    TCP/137    filtered
+    TCP/138    filtered
+    TCP/139    filtered
+    TCP/143    filtered
+    TCP/144    filtered
+    TCP/158    filtered
+    TCP/161    filtered
+    TCP/162    filtered
+    TCP/177    filtered
+    TCP/179    filtered
+    TCP/199    filtered
+    TCP/389    filtered
+    TCP/407    filtered
+    TCP/427    filtered
+    TCP/443    filtered
+    TCP/445    filtered
+    TCP/465    filtered
+    TCP/497    filtered
+    TCP/500    filtered
+    TCP/513    filtered
+    TCP/514    filtered
+    TCP/515    filtered
+    TCP/517    filtered
+    TCP/518    filtered
+    TCP/520    filtered
+    TCP/543    filtered
+    TCP/544    filtered
+    TCP/548    filtered
+    TCP/554    filtered
+    TCP/587    filtered
+    TCP/593    filtered
+    TCP/623    filtered
+    TCP/626    filtered
+    TCP/631    filtered
+    TCP/646    filtered
+    TCP/989    filtered
+    TCP/990    filtered
+    TCP/993    filtered
+    TCP/995    filtered
+    TCP/996    filtered
+    TCP/997    filtered
+    TCP/998    filtered
+    TCP/999    filtered
+    TCP/1001   filtered
+    TCP/1022   filtered
+    TCP/1023   filtered
+    TCP/1025   filtered
+    TCP/1026   filtered
+    TCP/1027   filtered
+    TCP/1028   filtered
+    TCP/1029   filtered
+    TCP/1030   filtered
+    TCP/1031   filtered
+    TCP/1032   filtered
+    TCP/1034   filtered
+    TCP/1041   filtered
+    TCP/1045   filtered
+    TCP/1068   filtered
+    TCP/1110   filtered
+    TCP/1433   filtered
+    TCP/1434   filtered
+    TCP/1645   filtered
+    TCP/1646   filtered
+    TCP/1701   filtered
+    TCP/1718   filtered
+    TCP/1719   filtered
+    TCP/1720   filtered
+    TCP/1723   filtered
+    TCP/1782   filtered
+    TCP/1812   filtered
+    TCP/1813   filtered
+    TCP/1900   filtered
+    TCP/2000   filtered
+    TCP/2001   filtered
+    TCP/2048   filtered
+    TCP/2049   filtered
+    TCP/2121   filtered
+    TCP/2148   filtered
+    TCP/2222   filtered
+    TCP/2223   filtered
+    TCP/2967   filtered
+    TCP/3130   filtered
+    TCP/3283   filtered
+    TCP/3306   filtered
+    TCP/3389   filtered
+    TCP/3456   filtered
+    TCP/3659   filtered
+    TCP/3703   filtered
+    TCP/4000   filtered
+    TCP/4045   filtered
+    TCP/4444   filtered
+    TCP/4500   filtered
+    TCP/4672   filtered
+    TCP/5000   filtered
+    TCP/5001   filtered
+    TCP/5060   filtered
+    TCP/5101   filtered
+    TCP/5353   filtered
+    TCP/5355   filtered
+    TCP/5357   filtered
+    TCP/5631   filtered
+    TCP/5632   filtered
+    TCP/5666   filtered
+    TCP/5800   filtered
+    TCP/5900   filtered
+    TCP/6000   filtered
+    TCP/6001   filtered
+    TCP/6346   filtered
+    TCP/8000   filtered
+    TCP/8008   filtered
+    TCP/8009   filtered
+    TCP/8080   filtered
+    TCP/8081   filtered
+    TCP/8443   filtered
+    TCP/8888   filtered
+    TCP/9200   filtered
+    TCP/10000  filtered
+    TCP/10080  filtered
+    TCP/17185  filtered
+    TCP/19283  filtered
+    TCP/20031  filtered
+    TCP/30718  filtered
+    TCP/31337  filtered
+    TCP/32768  filtered
+    TCP/32769  filtered
+    TCP/32770  filtered
+    TCP/32771  filtered
+    TCP/32772  filtered
+    TCP/32815  filtered
+    TCP/33281  filtered
+    TCP/33354  filtered
+    TCP/34555  filtered
+    TCP/34861  filtered
+    TCP/34862  filtered
+    TCP/37444  filtered
+    TCP/41524  filtered
+    TCP/49152  filtered
+    TCP/49153  filtered
+    TCP/49154  filtered
+    TCP/49155  filtered
+    TCP/49156  filtered
+    TCP/49158  filtered
+    TCP/49162  filtered
+    TCP/49171  filtered
+    TCP/49179  filtered
+    TCP/49180  filtered
+    TCP/49181  filtered
+    TCP/49182  filtered
+    TCP/49184  filtered
+    TCP/49185  filtered
+    TCP/49186  filtered
+    TCP/49187  filtered
+    TCP/49188  filtered
+    TCP/49189  filtered
+    TCP/49190  filtered
+    TCP/49191  filtered
+    TCP/49192  filtered
+    TCP/49193  filtered
+    TCP/49194  filtered
+    TCP/49195  filtered
+    TCP/49196  filtered
+    TCP/49199  filtered
+    TCP/49200  filtered
+    TCP/49201  filtered
+    TCP/49202  filtered
+    TCP/49205  filtered
+    TCP/49208  filtered
+    TCP/49209  filtered
+    TCP/49210  filtered
+    TCP/49211  filtered
+    TCP/65024  filtered
+
+  With record_route:
+    TCP/7      closed   [was filtered]
+    TCP/9      closed   [was filtered]
+    TCP/13     closed   [was filtered]
+    TCP/17     closed   [was filtered]
+    TCP/19     closed   [was filtered]
+    TCP/21     closed   [was filtered]
+    TCP/22     filtered
+    TCP/23     closed   [was filtered]
+    TCP/25     filtered
+    TCP/26     closed   [was filtered]
+    TCP/37     closed   [was filtered]
+    TCP/42     closed   [was filtered]
+    TCP/49     closed   [was filtered]
+    TCP/53     closed   [was filtered]
+    TCP/67     closed   [was filtered]
+    TCP/68     closed   [was filtered]
+    TCP/69     closed   [was filtered]
+    TCP/79     closed   [was filtered]
+    TCP/80     closed   [was filtered]
+    TCP/81     closed   [was filtered]
+    TCP/88     closed   [was filtered]
+    TCP/106    closed   [was filtered]
+    TCP/110    closed   [was filtered]
+    TCP/111    closed   [was filtered]
+    TCP/113    closed   [was filtered]
+    TCP/120    closed   [was filtered]
+    TCP/123    closed   [was filtered]
+    TCP/135    closed   [was filtered]
+    TCP/136    closed   [was filtered]
+    TCP/137    closed   [was filtered]
+    TCP/138    closed   [was filtered]
+    TCP/139    closed   [was filtered]
+    TCP/143    closed   [was filtered]
+    TCP/144    closed   [was filtered]
+    TCP/158    closed   [was filtered]
+    TCP/161    closed   [was filtered]
+    TCP/162    closed   [was filtered]
+    TCP/177    closed   [was filtered]
+    TCP/179    filtered
+    TCP/199    closed   [was filtered]
+    TCP/389    closed   [was filtered]
+    TCP/407    closed   [was filtered]
+    TCP/427    closed   [was filtered]
+    TCP/443    closed   [was filtered]
+    TCP/445    closed   [was filtered]
+    TCP/465    closed   [was filtered]
+    TCP/497    closed   [was filtered]
+    TCP/500    closed   [was filtered]
+    TCP/513    closed   [was filtered]
+    TCP/514    closed   [was filtered]
+    TCP/515    closed   [was filtered]
+    TCP/517    closed   [was filtered]
+    TCP/518    closed   [was filtered]
+    TCP/520    closed   [was filtered]
+    TCP/543    closed   [was filtered]
+    TCP/544    closed   [was filtered]
+    TCP/548    closed   [was filtered]
+    TCP/554    closed   [was filtered]
+    TCP/587    closed   [was filtered]
+    TCP/593    closed   [was filtered]
+    TCP/623    closed   [was filtered]
+    TCP/626    closed   [was filtered]
+    TCP/631    closed   [was filtered]
+    TCP/646    closed   [was filtered]
+    TCP/989    closed   [was filtered]
+    TCP/990    closed   [was filtered]
+    TCP/993    closed   [was filtered]
+    TCP/995    closed   [was filtered]
+    TCP/996    closed   [was filtered]
+    TCP/997    closed   [was filtered]
+    TCP/998    closed   [was filtered]
+    TCP/999    closed   [was filtered]
+    TCP/1001   closed   [was filtered]
+    TCP/1022   closed   [was filtered]
+    TCP/1023   closed   [was filtered]
+    TCP/1025   closed   [was filtered]
+    TCP/1026   closed   [was filtered]
+    TCP/1027   closed   [was filtered]
+    TCP/1028   closed   [was filtered]
+    TCP/1029   closed   [was filtered]
+    TCP/1030   closed   [was filtered]
+    TCP/1031   closed   [was filtered]
+    TCP/1032   closed   [was filtered]
+    TCP/1034   closed   [was filtered]
+    TCP/1041   closed   [was filtered]
+    TCP/1045   closed   [was filtered]
+    TCP/1068   closed   [was filtered]
+    TCP/1110   closed   [was filtered]
+    TCP/1433   closed   [was filtered]
+    TCP/1434   closed   [was filtered]
+    TCP/1645   closed   [was filtered]
+    TCP/1646   closed   [was filtered]
+    TCP/1701   closed   [was filtered]
+    TCP/1718   closed   [was filtered]
+    TCP/1719   closed   [was filtered]
+    TCP/1720   closed   [was filtered]
+    TCP/1723   closed   [was filtered]
+    TCP/1782   closed   [was filtered]
+    TCP/1812   closed   [was filtered]
+    TCP/1813   closed   [was filtered]
+    TCP/1900   closed   [was filtered]
+    TCP/2000   closed   [was filtered]
+    TCP/2001   closed   [was filtered]
+    TCP/2048   closed   [was filtered]
+    TCP/2049   closed   [was filtered]
+    TCP/2121   closed   [was filtered]
+    TCP/2148   closed   [was filtered]
+    TCP/2222   closed   [was filtered]
+    TCP/2223   closed   [was filtered]
+    TCP/2967   closed   [was filtered]
+    TCP/3130   closed   [was filtered]
+    TCP/3283   closed   [was filtered]
+    TCP/3306   closed   [was filtered]
+    TCP/3389   closed   [was filtered]
+    TCP/3456   closed   [was filtered]
+    TCP/3659   closed   [was filtered]
+    TCP/3703   closed   [was filtered]
+    TCP/4000   closed   [was filtered]
+    TCP/4045   closed   [was filtered]
+    TCP/4444   closed   [was filtered]
+    TCP/4500   closed   [was filtered]
+    TCP/4672   closed   [was filtered]
+    TCP/5000   closed   [was filtered]
+    TCP/5001   closed   [was filtered]
+    TCP/5060   closed   [was filtered]
+    TCP/5101   closed   [was filtered]
+    TCP/5353   closed   [was filtered]
+    TCP/5355   closed   [was filtered]
+    TCP/5357   closed   [was filtered]
+    TCP/5631   closed   [was filtered]
+    TCP/5632   closed   [was filtered]
+    TCP/5666   closed   [was filtered]
+    TCP/5800   closed   [was filtered]
+    TCP/5900   closed   [was filtered]
+    TCP/6000   closed   [was filtered]
+    TCP/6001   closed   [was filtered]
+    TCP/6346   closed   [was filtered]
+    TCP/8000   closed   [was filtered]
+    TCP/8008   closed   [was filtered]
+    TCP/8009   closed   [was filtered]
+    TCP/8080   closed   [was filtered]
+    TCP/8081   closed   [was filtered]
+    TCP/8443   closed   [was filtered]
+    TCP/8888   closed   [was filtered]
+    TCP/9200   closed   [was filtered]
+    TCP/10000  closed   [was filtered]
+    TCP/10080  closed   [was filtered]
+    TCP/17185  closed   [was filtered]
+    TCP/19283  closed   [was filtered]
+    TCP/20031  closed   [was filtered]
+    TCP/30718  closed   [was filtered]
+    TCP/31337  closed   [was filtered]
+    TCP/32768  closed   [was filtered]
+    TCP/32769  closed   [was filtered]
+    TCP/32770  closed   [was filtered]
+    TCP/32771  closed   [was filtered]
+    TCP/32772  closed   [was filtered]
+    TCP/32815  closed   [was filtered]
+    TCP/33281  closed   [was filtered]
+    TCP/33354  closed   [was filtered]
+    TCP/34555  closed   [was filtered]
+    TCP/34861  closed   [was filtered]
+    TCP/34862  closed   [was filtered]
+    TCP/37444  closed   [was filtered]
+    TCP/41524  closed   [was filtered]
+    TCP/49152  closed   [was filtered]
+    TCP/49153  closed   [was filtered]
+    TCP/49154  closed   [was filtered]
+    TCP/49155  closed   [was filtered]
+    TCP/49156  closed   [was filtered]
+    TCP/49158  closed   [was filtered]
+    TCP/49162  closed   [was filtered]
+    TCP/49171  closed   [was filtered]
+    TCP/49179  closed   [was filtered]
+    TCP/49180  closed   [was filtered]
+    TCP/49181  closed   [was filtered]
+    TCP/49182  closed   [was filtered]
+    TCP/49184  closed   [was filtered]
+    TCP/49185  closed   [was filtered]
+    TCP/49186  closed   [was filtered]
+    TCP/49187  closed   [was filtered]
+    TCP/49188  closed   [was filtered]
+    TCP/49189  closed   [was filtered]
+    TCP/49190  closed   [was filtered]
+    TCP/49191  closed   [was filtered]
+    TCP/49192  closed   [was filtered]
+    TCP/49193  closed   [was filtered]
+    TCP/49194  closed   [was filtered]
+    TCP/49195  closed   [was filtered]
+    TCP/49196  closed   [was filtered]
+    TCP/49199  closed   [was filtered]
+    TCP/49200  closed   [was filtered]
+    TCP/49201  closed   [was filtered]
+    TCP/49202  closed   [was filtered]
+    TCP/49205  closed   [was filtered]
+    TCP/49208  closed   [was filtered]
+    TCP/49209  closed   [was filtered]
+    TCP/49210  closed   [was filtered]
+    TCP/49211  closed   [was filtered]
+    TCP/65024  closed   [was filtered]
+
+  With timestamp:
+    TCP/7      filtered
+    TCP/9      filtered
+    TCP/13     filtered
+    TCP/17     filtered
+    TCP/19     filtered
+    TCP/21     filtered
+    TCP/22     filtered
+    TCP/23     filtered
+    TCP/25     filtered
+    TCP/26     filtered
+    TCP/37     filtered
+    TCP/42     filtered
+    TCP/49     filtered
+    TCP/53     filtered
+    TCP/67     filtered
+    TCP/68     filtered
+    TCP/69     filtered
+    TCP/79     filtered
+    TCP/80     filtered
+    TCP/81     filtered
+    TCP/88     filtered
+    TCP/106    filtered
+    TCP/110    filtered
+    TCP/111    filtered
+    TCP/113    filtered
+    TCP/120    filtered
+    TCP/123    filtered
+    TCP/135    filtered
+    TCP/136    filtered
+    TCP/137    filtered
+    TCP/138    filtered
+    TCP/139    filtered
+    TCP/143    filtered
+    TCP/144    filtered
+    TCP/158    filtered
+    TCP/161    filtered
+    TCP/162    filtered
+    TCP/177    filtered
+    TCP/179    filtered
+    TCP/199    filtered
+    TCP/389    filtered
+    TCP/407    filtered
+    TCP/427    filtered
+    TCP/443    filtered
+    TCP/445    filtered
+    TCP/465    filtered
+    TCP/497    filtered
+    TCP/500    filtered
+    TCP/513    filtered
+    TCP/514    filtered
+    TCP/515    filtered
+    TCP/517    filtered
+    TCP/518    filtered
+    TCP/520    filtered
+    TCP/543    filtered
+    TCP/544    filtered
+    TCP/548    filtered
+    TCP/554    filtered
+    TCP/587    filtered
+    TCP/593    filtered
+    TCP/623    filtered
+    TCP/626    filtered
+    TCP/631    filtered
+    TCP/646    filtered
+    TCP/989    filtered
+    TCP/990    filtered
+    TCP/993    filtered
+    TCP/995    filtered
+    TCP/996    filtered
+    TCP/997    filtered
+    TCP/998    filtered
+    TCP/999    filtered
+    TCP/1001   filtered
+    TCP/1022   filtered
+    TCP/1023   filtered
+    TCP/1025   filtered
+    TCP/1026   filtered
+    TCP/1027   filtered
+    TCP/1028   filtered
+    TCP/1029   filtered
+    TCP/1030   filtered
+    TCP/1031   filtered
+    TCP/1032   filtered
+    TCP/1034   filtered
+    TCP/1041   filtered
+    TCP/1045   filtered
+    TCP/1068   filtered
+    TCP/1110   filtered
+    TCP/1433   filtered
+    TCP/1434   filtered
+    TCP/1645   filtered
+    TCP/1646   filtered
+    TCP/1701   filtered
+    TCP/1718   filtered
+    TCP/1719   filtered
+    TCP/1720   filtered
+    TCP/1723   filtered
+    TCP/1782   filtered
+    TCP/1812   filtered
+    TCP/1813   filtered
+    TCP/1900   filtered
+    TCP/2000   filtered
+    TCP/2001   filtered
+    TCP/2048   filtered
+    TCP/2049   filtered
+    TCP/2121   filtered
+    TCP/2148   filtered
+    TCP/2222   filtered
+    TCP/2223   filtered
+    TCP/2967   filtered
+    TCP/3130   filtered
+    TCP/3283   filtered
+    TCP/3306   filtered
+    TCP/3389   filtered
+    TCP/3456   filtered
+    TCP/3659   filtered
+    TCP/3703   filtered
+    TCP/4000   filtered
+    TCP/4045   filtered
+    TCP/4444   filtered
+    TCP/4500   filtered
+    TCP/4672   filtered
+    TCP/5000   filtered
+    TCP/5001   filtered
+    TCP/5060   filtered
+    TCP/5101   filtered
+    TCP/5353   filtered
+    TCP/5355   filtered
+    TCP/5357   filtered
+    TCP/5631   filtered
+    TCP/5632   filtered
+    TCP/5666   filtered
+    TCP/5800   filtered
+    TCP/5900   filtered
+    TCP/6000   filtered
+    TCP/6001   filtered
+    TCP/6346   filtered
+    TCP/8000   filtered
+    TCP/8008   filtered
+    TCP/8009   filtered
+    TCP/8080   filtered
+    TCP/8081   filtered
+    TCP/8443   filtered
+    TCP/8888   filtered
+    TCP/9200   filtered
+    TCP/10000  filtered
+    TCP/10080  filtered
+    TCP/17185  filtered
+    TCP/19283  filtered
+    TCP/20031  filtered
+    TCP/30718  filtered
+    TCP/31337  filtered
+    TCP/32768  filtered
+    TCP/32769  filtered
+    TCP/32770  filtered
+    TCP/32771  filtered
+    TCP/32772  filtered
+    TCP/32815  filtered
+    TCP/33281  filtered
+    TCP/33354  filtered
+    TCP/34555  filtered
+    TCP/34861  filtered
+    TCP/34862  filtered
+    TCP/37444  filtered
+    TCP/41524  filtered
+    TCP/49152  filtered
+    TCP/49153  filtered
+    TCP/49154  filtered
+    TCP/49155  filtered
+    TCP/49156  filtered
+    TCP/49158  filtered
+    TCP/49162  filtered
+    TCP/49171  filtered
+    TCP/49179  filtered
+    TCP/49180  filtered
+    TCP/49181  filtered
+    TCP/49182  filtered
+    TCP/49184  filtered
+    TCP/49185  filtered
+    TCP/49186  filtered
+    TCP/49187  filtered
+    TCP/49188  filtered
+    TCP/49189  filtered
+    TCP/49190  filtered
+    TCP/49191  filtered
+    TCP/49192  filtered
+    TCP/49193  filtered
+    TCP/49194  filtered
+    TCP/49195  filtered
+    TCP/49196  filtered
+    TCP/49199  filtered
+    TCP/49200  filtered
+    TCP/49201  filtered
+    TCP/49202  filtered
+    TCP/49205  filtered
+    TCP/49208  filtered
+    TCP/49209  filtered
+    TCP/49210  filtered
+    TCP/49211  filtered
+    TCP/65024  filtered
+
+  With router_alert:
+    TCP/7      closed   [was filtered]
+    TCP/9      closed   [was filtered]
+    TCP/13     closed   [was filtered]
+    TCP/17     closed   [was filtered]
+    TCP/19     closed   [was filtered]
+    TCP/21     closed   [was filtered]
+    TCP/22     filtered
+    TCP/23     closed   [was filtered]
+    TCP/25     filtered
+    TCP/26     closed   [was filtered]
+    TCP/37     closed   [was filtered]
+    TCP/42     closed   [was filtered]
+    TCP/49     closed   [was filtered]
+    TCP/53     closed   [was filtered]
+    TCP/67     closed   [was filtered]
+    TCP/68     closed   [was filtered]
+    TCP/69     closed   [was filtered]
+    TCP/79     closed   [was filtered]
+    TCP/80     closed   [was filtered]
+    TCP/81     closed   [was filtered]
+    TCP/88     closed   [was filtered]
+    TCP/106    closed   [was filtered]
+    TCP/110    closed   [was filtered]
+    TCP/111    closed   [was filtered]
+    TCP/113    closed   [was filtered]
+    TCP/120    closed   [was filtered]
+    TCP/123    closed   [was filtered]
+    TCP/135    closed   [was filtered]
+    TCP/136    closed   [was filtered]
+    TCP/137    closed   [was filtered]
+    TCP/138    closed   [was filtered]
+    TCP/139    closed   [was filtered]
+    TCP/143    closed   [was filtered]
+    TCP/144    closed   [was filtered]
+    TCP/158    closed   [was filtered]
+    TCP/161    closed   [was filtered]
+    TCP/162    closed   [was filtered]
+    TCP/177    closed   [was filtered]
+    TCP/179    filtered
+    TCP/199    closed   [was filtered]
+    TCP/389    closed   [was filtered]
+    TCP/407    closed   [was filtered]
+    TCP/427    closed   [was filtered]
+    TCP/443    closed   [was filtered]
+    TCP/445    closed   [was filtered]
+    TCP/465    closed   [was filtered]
+    TCP/497    closed   [was filtered]
+    TCP/500    closed   [was filtered]
+    TCP/513    closed   [was filtered]
+    TCP/514    closed   [was filtered]
+    TCP/515    closed   [was filtered]
+    TCP/517    closed   [was filtered]
+    TCP/518    closed   [was filtered]
+    TCP/520    closed   [was filtered]
+    TCP/543    closed   [was filtered]
+    TCP/544    closed   [was filtered]
+    TCP/548    closed   [was filtered]
+    TCP/554    closed   [was filtered]
+    TCP/587    closed   [was filtered]
+    TCP/593    closed   [was filtered]
+    TCP/623    closed   [was filtered]
+    TCP/626    closed   [was filtered]
+    TCP/631    closed   [was filtered]
+    TCP/646    closed   [was filtered]
+    TCP/989    closed   [was filtered]
+    TCP/990    closed   [was filtered]
+    TCP/993    closed   [was filtered]
+    TCP/995    closed   [was filtered]
+    TCP/996    closed   [was filtered]
+    TCP/997    closed   [was filtered]
+    TCP/998    closed   [was filtered]
+    TCP/999    closed   [was filtered]
+    TCP/1001   closed   [was filtered]
+    TCP/1022   closed   [was filtered]
+    TCP/1023   closed   [was filtered]
+    TCP/1025   closed   [was filtered]
+    TCP/1026   closed   [was filtered]
+    TCP/1027   closed   [was filtered]
+    TCP/1028   closed   [was filtered]
+    TCP/1029   closed   [was filtered]
+    TCP/1030   closed   [was filtered]
+    TCP/1031   closed   [was filtered]
+    TCP/1032   closed   [was filtered]
+    TCP/1034   closed   [was filtered]
+    TCP/1041   closed   [was filtered]
+    TCP/1045   closed   [was filtered]
+    TCP/1068   closed   [was filtered]
+    TCP/1110   closed   [was filtered]
+    TCP/1433   closed   [was filtered]
+    TCP/1434   closed   [was filtered]
+    TCP/1645   closed   [was filtered]
+    TCP/1646   closed   [was filtered]
+    TCP/1701   closed   [was filtered]
+    TCP/1718   closed   [was filtered]
+    TCP/1719   closed   [was filtered]
+    TCP/1720   closed   [was filtered]
+    TCP/1723   closed   [was filtered]
+    TCP/1782   closed   [was filtered]
+    TCP/1812   closed   [was filtered]
+    TCP/1813   closed   [was filtered]
+    TCP/1900   closed   [was filtered]
+    TCP/2000   closed   [was filtered]
+    TCP/2001   closed   [was filtered]
+    TCP/2048   closed   [was filtered]
+    TCP/2049   closed   [was filtered]
+    TCP/2121   closed   [was filtered]
+    TCP/2148   closed   [was filtered]
+    TCP/2222   closed   [was filtered]
+    TCP/2223   closed   [was filtered]
+    TCP/2967   closed   [was filtered]
+    TCP/3130   closed   [was filtered]
+    TCP/3283   closed   [was filtered]
+    TCP/3306   closed   [was filtered]
+    TCP/3389   closed   [was filtered]
+    TCP/3456   closed   [was filtered]
+    TCP/3659   closed   [was filtered]
+    TCP/3703   closed   [was filtered]
+    TCP/4000   closed   [was filtered]
+    TCP/4045   closed   [was filtered]
+    TCP/4444   closed   [was filtered]
+    TCP/4500   closed   [was filtered]
+    TCP/4672   closed   [was filtered]
+    TCP/5000   closed   [was filtered]
+    TCP/5001   closed   [was filtered]
+    TCP/5060   closed   [was filtered]
+    TCP/5101   closed   [was filtered]
+    TCP/5353   closed   [was filtered]
+    TCP/5355   closed   [was filtered]
+    TCP/5357   closed   [was filtered]
+    TCP/5631   closed   [was filtered]
+    TCP/5632   closed   [was filtered]
+    TCP/5666   closed   [was filtered]
+    TCP/5800   closed   [was filtered]
+    TCP/5900   closed   [was filtered]
+    TCP/6000   closed   [was filtered]
+    TCP/6001   closed   [was filtered]
+    TCP/6346   closed   [was filtered]
+    TCP/8000   closed   [was filtered]
+    TCP/8008   closed   [was filtered]
+    TCP/8009   closed   [was filtered]
+    TCP/8080   closed   [was filtered]
+    TCP/8081   closed   [was filtered]
+    TCP/8443   closed   [was filtered]
+    TCP/8888   closed   [was filtered]
+    TCP/9200   closed   [was filtered]
+    TCP/10000  closed   [was filtered]
+    TCP/10080  closed   [was filtered]
+    TCP/17185  closed   [was filtered]
+    TCP/19283  closed   [was filtered]
+    TCP/20031  closed   [was filtered]
+    TCP/30718  closed   [was filtered]
+    TCP/31337  closed   [was filtered]
+    TCP/32768  closed   [was filtered]
+    TCP/32769  closed   [was filtered]
+    TCP/32770  closed   [was filtered]
+    TCP/32771  closed   [was filtered]
+    TCP/32772  closed   [was filtered]
+    TCP/32815  closed   [was filtered]
+    TCP/33281  closed   [was filtered]
+    TCP/33354  closed   [was filtered]
+    TCP/34555  closed   [was filtered]
+    TCP/34861  closed   [was filtered]
+    TCP/34862  closed   [was filtered]
+    TCP/37444  closed   [was filtered]
+    TCP/41524  closed   [was filtered]
+    TCP/49152  closed   [was filtered]
+    TCP/49153  closed   [was filtered]
+    TCP/49154  closed   [was filtered]
+    TCP/49155  closed   [was filtered]
+    TCP/49156  closed   [was filtered]
+    TCP/49158  closed   [was filtered]
+    TCP/49162  closed   [was filtered]
+    TCP/49171  closed   [was filtered]
+    TCP/49179  closed   [was filtered]
+    TCP/49180  closed   [was filtered]
+    TCP/49181  closed   [was filtered]
+    TCP/49182  closed   [was filtered]
+    TCP/49184  closed   [was filtered]
+    TCP/49185  closed   [was filtered]
+    TCP/49186  closed   [was filtered]
+    TCP/49187  closed   [was filtered]
+    TCP/49188  closed   [was filtered]
+    TCP/49189  closed   [was filtered]
+    TCP/49190  closed   [was filtered]
+    TCP/49191  closed   [was filtered]
+    TCP/49192  closed   [was filtered]
+    TCP/49193  closed   [was filtered]
+    TCP/49194  closed   [was filtered]
+    TCP/49195  closed   [was filtered]
+    TCP/49196  closed   [was filtered]
+    TCP/49199  closed   [was filtered]
+    TCP/49200  closed   [was filtered]
+    TCP/49201  closed   [was filtered]
+    TCP/49202  closed   [was filtered]
+    TCP/49205  closed   [was filtered]
+    TCP/49208  closed   [was filtered]
+    TCP/49209  closed   [was filtered]
+    TCP/49210  closed   [was filtered]
+    TCP/49211  closed   [was filtered]
+    TCP/65024  closed   [was filtered]
+
+  IP Options Support:
+    record_route     — supported
+    timestamp        — inconclusive
+    router_alert     — supported
+[Client] Disconnected.

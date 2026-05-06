@@ -1,0 +1,832 @@
+Warning: Delays under 1 second may cause unreliable results with UDP scans, defaulting to 1s.
+=== Scan Config  ===
+Host      : 34.41.254.80:9000
+Protocol  : UDP
+Ports     : 200 ports
+Timeout   : auto (Max[4RTT | 0.5s])
+Delay     : 1.0s
+IP option : all
+IPv6 Test : Enabled
+===================
+[Client] Connected to 34.41.254.80:9000
+[Client] Server version: 0.1, IPv6: 2600:1900:4000:1746::
+[Client] Handshake complete.
+[Client] RTT 107ms — timeout set to 0.50s
+[Client] IPv6 test: skipped — no public IPv6 on this machine.
+[Client] Scan request [6d68e239]: inbound UDP, 200 ports
+
+  Scan [6d68e239] — inbound:
+
+  Baseline (no IP options):
+    UDP/7      open|filtered
+    UDP/9      open|filtered
+    UDP/13     open|filtered
+    UDP/17     open|filtered
+    UDP/19     open|filtered
+    UDP/21     open|filtered
+    UDP/22     open|filtered
+    UDP/23     open|filtered
+    UDP/25     open|filtered
+    UDP/26     open|filtered
+    UDP/37     open|filtered
+    UDP/42     open|filtered
+    UDP/49     open|filtered
+    UDP/53     open|filtered
+    UDP/67     open|filtered
+    UDP/68     open|filtered
+    UDP/69     open|filtered
+    UDP/79     open|filtered
+    UDP/80     open|filtered
+    UDP/81     open|filtered
+    UDP/88     open|filtered
+    UDP/106    open|filtered
+    UDP/110    open|filtered
+    UDP/111    open|filtered
+    UDP/113    open|filtered
+    UDP/120    open|filtered
+    UDP/123    open|filtered
+    UDP/135    open|filtered
+    UDP/136    open|filtered
+    UDP/137    open|filtered
+    UDP/138    open|filtered
+    UDP/139    open|filtered
+    UDP/143    open|filtered
+    UDP/144    open|filtered
+    UDP/158    open|filtered
+    UDP/161    open|filtered
+    UDP/162    open|filtered
+    UDP/177    open|filtered
+    UDP/179    open|filtered
+    UDP/199    open|filtered
+    UDP/389    open|filtered
+    UDP/407    open|filtered
+    UDP/427    open|filtered
+    UDP/443    open|filtered
+    UDP/445    open|filtered
+    UDP/465    open|filtered
+    UDP/497    open|filtered
+    UDP/500    open|filtered
+    UDP/513    open|filtered
+    UDP/514    open|filtered
+    UDP/515    open|filtered
+    UDP/517    open|filtered
+    UDP/518    open|filtered
+    UDP/520    open|filtered
+    UDP/543    open|filtered
+    UDP/544    open|filtered
+    UDP/548    open|filtered
+    UDP/554    open|filtered
+    UDP/587    open|filtered
+    UDP/593    open|filtered
+    UDP/623    open|filtered
+    UDP/626    open|filtered
+    UDP/631    open|filtered
+    UDP/646    open|filtered
+    UDP/989    open|filtered
+    UDP/990    open|filtered
+    UDP/993    open|filtered
+    UDP/995    open|filtered
+    UDP/996    open|filtered
+    UDP/997    open|filtered
+    UDP/998    open|filtered
+    UDP/999    open|filtered
+    UDP/1001   open|filtered
+    UDP/1022   open|filtered
+    UDP/1023   open|filtered
+    UDP/1025   open|filtered
+    UDP/1026   open|filtered
+    UDP/1027   open|filtered
+    UDP/1028   open|filtered
+    UDP/1029   open|filtered
+    UDP/1030   open|filtered
+    UDP/1031   open|filtered
+    UDP/1032   open|filtered
+    UDP/1034   open|filtered
+    UDP/1041   open|filtered
+    UDP/1045   open|filtered
+    UDP/1068   open|filtered
+    UDP/1110   open|filtered
+    UDP/1433   open|filtered
+    UDP/1434   open|filtered
+    UDP/1645   open|filtered
+    UDP/1646   open|filtered
+    UDP/1701   open|filtered
+    UDP/1718   open|filtered
+    UDP/1719   open|filtered
+    UDP/1720   open|filtered
+    UDP/1723   open|filtered
+    UDP/1782   open|filtered
+    UDP/1812   open|filtered
+    UDP/1813   open|filtered
+    UDP/1900   open|filtered
+    UDP/2000   open|filtered
+    UDP/2001   open|filtered
+    UDP/2048   open|filtered
+    UDP/2049   open|filtered
+    UDP/2121   open|filtered
+    UDP/2148   open|filtered
+    UDP/2222   open|filtered
+    UDP/2223   open|filtered
+    UDP/2967   open|filtered
+    UDP/3130   open|filtered
+    UDP/3283   open|filtered
+    UDP/3306   open|filtered
+    UDP/3389   open|filtered
+    UDP/3456   open|filtered
+    UDP/3659   open|filtered
+    UDP/3703   open|filtered
+    UDP/4000   open|filtered
+    UDP/4045   open|filtered
+    UDP/4444   open|filtered
+    UDP/4500   open|filtered
+    UDP/4672   open|filtered
+    UDP/5000   open|filtered
+    UDP/5001   open|filtered
+    UDP/5060   open|filtered
+    UDP/5101   open|filtered
+    UDP/5353   open|filtered
+    UDP/5355   open|filtered
+    UDP/5357   open|filtered
+    UDP/5631   open|filtered
+    UDP/5632   open|filtered
+    UDP/5666   open|filtered
+    UDP/5800   open|filtered
+    UDP/5900   open|filtered
+    UDP/6000   open|filtered
+    UDP/6001   open|filtered
+    UDP/6346   open|filtered
+    UDP/8000   open|filtered
+    UDP/8008   open|filtered
+    UDP/8009   open|filtered
+    UDP/8080   open|filtered
+    UDP/8081   open|filtered
+    UDP/8443   open|filtered
+    UDP/8888   open|filtered
+    UDP/9200   open|filtered
+    UDP/10000  open|filtered
+    UDP/10080  open|filtered
+    UDP/17185  open|filtered
+    UDP/19283  open|filtered
+    UDP/20031  open|filtered
+    UDP/30718  open|filtered
+    UDP/31337  open|filtered
+    UDP/32768  open|filtered
+    UDP/32769  open|filtered
+    UDP/32770  open|filtered
+    UDP/32771  open|filtered
+    UDP/32772  open|filtered
+    UDP/32815  open|filtered
+    UDP/33281  open|filtered
+    UDP/33354  open|filtered
+    UDP/34555  open|filtered
+    UDP/34861  open|filtered
+    UDP/34862  open|filtered
+    UDP/37444  open|filtered
+    UDP/41524  open|filtered
+    UDP/49152  open|filtered
+    UDP/49153  open|filtered
+    UDP/49154  open|filtered
+    UDP/49155  open|filtered
+    UDP/49156  open|filtered
+    UDP/49158  open|filtered
+    UDP/49162  open|filtered
+    UDP/49171  open|filtered
+    UDP/49179  open|filtered
+    UDP/49180  open|filtered
+    UDP/49181  open|filtered
+    UDP/49182  open|filtered
+    UDP/49184  open|filtered
+    UDP/49185  open|filtered
+    UDP/49186  open|filtered
+    UDP/49187  open|filtered
+    UDP/49188  open|filtered
+    UDP/49189  open|filtered
+    UDP/49190  open|filtered
+    UDP/49191  open|filtered
+    UDP/49192  open|filtered
+    UDP/49193  open|filtered
+    UDP/49194  open|filtered
+    UDP/49195  open|filtered
+    UDP/49196  open|filtered
+    UDP/49199  open|filtered
+    UDP/49200  open|filtered
+    UDP/49201  open|filtered
+    UDP/49202  open|filtered
+    UDP/49205  open|filtered
+    UDP/49208  open|filtered
+    UDP/49209  open|filtered
+    UDP/49210  open|filtered
+    UDP/49211  open|filtered
+    UDP/65024  open|filtered
+
+  With record_route:
+    UDP/7      closed   [was open|filtered]
+    UDP/9      closed   [was open|filtered]
+    UDP/13     closed   [was open|filtered]
+    UDP/17     closed   [was open|filtered]
+    UDP/19     closed   [was open|filtered]
+    UDP/21     closed   [was open|filtered]
+    UDP/22     closed   [was open|filtered]
+    UDP/23     closed   [was open|filtered]
+    UDP/25     closed   [was open|filtered]
+    UDP/26     closed   [was open|filtered]
+    UDP/37     closed   [was open|filtered]
+    UDP/42     closed   [was open|filtered]
+    UDP/49     closed   [was open|filtered]
+    UDP/53     closed   [was open|filtered]
+    UDP/67     open|filtered
+    UDP/68     open|filtered
+    UDP/69     closed   [was open|filtered]
+    UDP/79     closed   [was open|filtered]
+    UDP/80     closed   [was open|filtered]
+    UDP/81     closed   [was open|filtered]
+    UDP/88     closed   [was open|filtered]
+    UDP/106    closed   [was open|filtered]
+    UDP/110    closed   [was open|filtered]
+    UDP/111    closed   [was open|filtered]
+    UDP/113    closed   [was open|filtered]
+    UDP/120    closed   [was open|filtered]
+    UDP/123    open|filtered
+    UDP/135    closed   [was open|filtered]
+    UDP/136    closed   [was open|filtered]
+    UDP/137    closed   [was open|filtered]
+    UDP/138    closed   [was open|filtered]
+    UDP/139    closed   [was open|filtered]
+    UDP/143    closed   [was open|filtered]
+    UDP/144    closed   [was open|filtered]
+    UDP/158    closed   [was open|filtered]
+    UDP/161    open|filtered
+    UDP/162    closed   [was open|filtered]
+    UDP/177    closed   [was open|filtered]
+    UDP/179    closed   [was open|filtered]
+    UDP/199    closed   [was open|filtered]
+    UDP/389    closed   [was open|filtered]
+    UDP/407    closed   [was open|filtered]
+    UDP/427    closed   [was open|filtered]
+    UDP/443    closed   [was open|filtered]
+    UDP/445    closed   [was open|filtered]
+    UDP/465    closed   [was open|filtered]
+    UDP/497    closed   [was open|filtered]
+    UDP/500    closed   [was open|filtered]
+    UDP/513    closed   [was open|filtered]
+    UDP/514    closed   [was open|filtered]
+    UDP/515    closed   [was open|filtered]
+    UDP/517    closed   [was open|filtered]
+    UDP/518    closed   [was open|filtered]
+    UDP/520    closed   [was open|filtered]
+    UDP/543    closed   [was open|filtered]
+    UDP/544    closed   [was open|filtered]
+    UDP/548    closed   [was open|filtered]
+    UDP/554    closed   [was open|filtered]
+    UDP/587    closed   [was open|filtered]
+    UDP/593    closed   [was open|filtered]
+    UDP/623    closed   [was open|filtered]
+    UDP/626    closed   [was open|filtered]
+    UDP/631    closed   [was open|filtered]
+    UDP/646    closed   [was open|filtered]
+    UDP/989    closed   [was open|filtered]
+    UDP/990    closed   [was open|filtered]
+    UDP/993    closed   [was open|filtered]
+    UDP/995    closed   [was open|filtered]
+    UDP/996    closed   [was open|filtered]
+    UDP/997    closed   [was open|filtered]
+    UDP/998    closed   [was open|filtered]
+    UDP/999    closed   [was open|filtered]
+    UDP/1001   closed   [was open|filtered]
+    UDP/1022   closed   [was open|filtered]
+    UDP/1023   closed   [was open|filtered]
+    UDP/1025   closed   [was open|filtered]
+    UDP/1026   closed   [was open|filtered]
+    UDP/1027   closed   [was open|filtered]
+    UDP/1028   closed   [was open|filtered]
+    UDP/1029   closed   [was open|filtered]
+    UDP/1030   closed   [was open|filtered]
+    UDP/1031   closed   [was open|filtered]
+    UDP/1032   closed   [was open|filtered]
+    UDP/1034   closed   [was open|filtered]
+    UDP/1041   closed   [was open|filtered]
+    UDP/1045   closed   [was open|filtered]
+    UDP/1068   closed   [was open|filtered]
+    UDP/1110   closed   [was open|filtered]
+    UDP/1433   closed   [was open|filtered]
+    UDP/1434   closed   [was open|filtered]
+    UDP/1645   closed   [was open|filtered]
+    UDP/1646   closed   [was open|filtered]
+    UDP/1701   open|filtered
+    UDP/1718   closed   [was open|filtered]
+    UDP/1719   closed   [was open|filtered]
+    UDP/1720   closed   [was open|filtered]
+    UDP/1723   closed   [was open|filtered]
+    UDP/1782   closed   [was open|filtered]
+    UDP/1812   closed   [was open|filtered]
+    UDP/1813   closed   [was open|filtered]
+    UDP/1900   closed   [was open|filtered]
+    UDP/2000   closed   [was open|filtered]
+    UDP/2001   closed   [was open|filtered]
+    UDP/2048   closed   [was open|filtered]
+    UDP/2049   closed   [was open|filtered]
+    UDP/2121   closed   [was open|filtered]
+    UDP/2148   closed   [was open|filtered]
+    UDP/2222   closed   [was open|filtered]
+    UDP/2223   closed   [was open|filtered]
+    UDP/2967   closed   [was open|filtered]
+    UDP/3130   closed   [was open|filtered]
+    UDP/3283   closed   [was open|filtered]
+    UDP/3306   closed   [was open|filtered]
+    UDP/3389   closed   [was open|filtered]
+    UDP/3456   closed   [was open|filtered]
+    UDP/3659   closed   [was open|filtered]
+    UDP/3703   closed   [was open|filtered]
+    UDP/4000   closed   [was open|filtered]
+    UDP/4045   closed   [was open|filtered]
+    UDP/4444   closed   [was open|filtered]
+    UDP/4500   closed   [was open|filtered]
+    UDP/4672   closed   [was open|filtered]
+    UDP/5000   closed   [was open|filtered]
+    UDP/5001   closed   [was open|filtered]
+    UDP/5060   closed   [was open|filtered]
+    UDP/5101   closed   [was open|filtered]
+    UDP/5353   closed   [was open|filtered]
+    UDP/5355   closed   [was open|filtered]
+    UDP/5357   closed   [was open|filtered]
+    UDP/5631   closed   [was open|filtered]
+    UDP/5632   closed   [was open|filtered]
+    UDP/5666   closed   [was open|filtered]
+    UDP/5800   closed   [was open|filtered]
+    UDP/5900   closed   [was open|filtered]
+    UDP/6000   closed   [was open|filtered]
+    UDP/6001   closed   [was open|filtered]
+    UDP/6346   closed   [was open|filtered]
+    UDP/8000   closed   [was open|filtered]
+    UDP/8008   closed   [was open|filtered]
+    UDP/8009   closed   [was open|filtered]
+    UDP/8080   closed   [was open|filtered]
+    UDP/8081   closed   [was open|filtered]
+    UDP/8443   closed   [was open|filtered]
+    UDP/8888   closed   [was open|filtered]
+    UDP/9200   closed   [was open|filtered]
+    UDP/10000  closed   [was open|filtered]
+    UDP/10080  closed   [was open|filtered]
+    UDP/17185  closed   [was open|filtered]
+    UDP/19283  closed   [was open|filtered]
+    UDP/20031  closed   [was open|filtered]
+    UDP/30718  closed   [was open|filtered]
+    UDP/31337  closed   [was open|filtered]
+    UDP/32768  closed   [was open|filtered]
+    UDP/32769  closed   [was open|filtered]
+    UDP/32770  closed   [was open|filtered]
+    UDP/32771  closed   [was open|filtered]
+    UDP/32772  closed   [was open|filtered]
+    UDP/32815  closed   [was open|filtered]
+    UDP/33281  closed   [was open|filtered]
+    UDP/33354  closed   [was open|filtered]
+    UDP/34555  closed   [was open|filtered]
+    UDP/34861  closed   [was open|filtered]
+    UDP/34862  closed   [was open|filtered]
+    UDP/37444  closed   [was open|filtered]
+    UDP/41524  closed   [was open|filtered]
+    UDP/49152  closed   [was open|filtered]
+    UDP/49153  closed   [was open|filtered]
+    UDP/49154  closed   [was open|filtered]
+    UDP/49155  closed   [was open|filtered]
+    UDP/49156  closed   [was open|filtered]
+    UDP/49158  closed   [was open|filtered]
+    UDP/49162  closed   [was open|filtered]
+    UDP/49171  closed   [was open|filtered]
+    UDP/49179  closed   [was open|filtered]
+    UDP/49180  closed   [was open|filtered]
+    UDP/49181  closed   [was open|filtered]
+    UDP/49182  closed   [was open|filtered]
+    UDP/49184  closed   [was open|filtered]
+    UDP/49185  closed   [was open|filtered]
+    UDP/49186  closed   [was open|filtered]
+    UDP/49187  closed   [was open|filtered]
+    UDP/49188  closed   [was open|filtered]
+    UDP/49189  closed   [was open|filtered]
+    UDP/49190  closed   [was open|filtered]
+    UDP/49191  closed   [was open|filtered]
+    UDP/49192  closed   [was open|filtered]
+    UDP/49193  closed   [was open|filtered]
+    UDP/49194  closed   [was open|filtered]
+    UDP/49195  closed   [was open|filtered]
+    UDP/49196  closed   [was open|filtered]
+    UDP/49199  closed   [was open|filtered]
+    UDP/49200  closed   [was open|filtered]
+    UDP/49201  closed   [was open|filtered]
+    UDP/49202  closed   [was open|filtered]
+    UDP/49205  closed   [was open|filtered]
+    UDP/49208  closed   [was open|filtered]
+    UDP/49209  closed   [was open|filtered]
+    UDP/49210  closed   [was open|filtered]
+    UDP/49211  closed   [was open|filtered]
+    UDP/65024  closed   [was open|filtered]
+
+  With timestamp:
+    UDP/7      open|filtered
+    UDP/9      open|filtered
+    UDP/13     open|filtered
+    UDP/17     open|filtered
+    UDP/19     open|filtered
+    UDP/21     open|filtered
+    UDP/22     open|filtered
+    UDP/23     open|filtered
+    UDP/25     open|filtered
+    UDP/26     open|filtered
+    UDP/37     open|filtered
+    UDP/42     open|filtered
+    UDP/49     open|filtered
+    UDP/53     open|filtered
+    UDP/67     open|filtered
+    UDP/68     open|filtered
+    UDP/69     open|filtered
+    UDP/79     open|filtered
+    UDP/80     open|filtered
+    UDP/81     open|filtered
+    UDP/88     open|filtered
+    UDP/106    open|filtered
+    UDP/110    open|filtered
+    UDP/111    open|filtered
+    UDP/113    open|filtered
+    UDP/120    open|filtered
+    UDP/123    open|filtered
+    UDP/135    open|filtered
+    UDP/136    open|filtered
+    UDP/137    open|filtered
+    UDP/138    open|filtered
+    UDP/139    open|filtered
+    UDP/143    open|filtered
+    UDP/144    open|filtered
+    UDP/158    open|filtered
+    UDP/161    open|filtered
+    UDP/162    open|filtered
+    UDP/177    open|filtered
+    UDP/179    open|filtered
+    UDP/199    open|filtered
+    UDP/389    open|filtered
+    UDP/407    open|filtered
+    UDP/427    open|filtered
+    UDP/443    open|filtered
+    UDP/445    open|filtered
+    UDP/465    open|filtered
+    UDP/497    open|filtered
+    UDP/500    open|filtered
+    UDP/513    open|filtered
+    UDP/514    open|filtered
+    UDP/515    open|filtered
+    UDP/517    open|filtered
+    UDP/518    open|filtered
+    UDP/520    open|filtered
+    UDP/543    open|filtered
+    UDP/544    open|filtered
+    UDP/548    open|filtered
+    UDP/554    open|filtered
+    UDP/587    open|filtered
+    UDP/593    open|filtered
+    UDP/623    open|filtered
+    UDP/626    open|filtered
+    UDP/631    open|filtered
+    UDP/646    open|filtered
+    UDP/989    open|filtered
+    UDP/990    open|filtered
+    UDP/993    open|filtered
+    UDP/995    open|filtered
+    UDP/996    open|filtered
+    UDP/997    open|filtered
+    UDP/998    open|filtered
+    UDP/999    open|filtered
+    UDP/1001   open|filtered
+    UDP/1022   open|filtered
+    UDP/1023   open|filtered
+    UDP/1025   open|filtered
+    UDP/1026   open|filtered
+    UDP/1027   open|filtered
+    UDP/1028   open|filtered
+    UDP/1029   open|filtered
+    UDP/1030   open|filtered
+    UDP/1031   open|filtered
+    UDP/1032   open|filtered
+    UDP/1034   open|filtered
+    UDP/1041   open|filtered
+    UDP/1045   open|filtered
+    UDP/1068   open|filtered
+    UDP/1110   open|filtered
+    UDP/1433   open|filtered
+    UDP/1434   open|filtered
+    UDP/1645   open|filtered
+    UDP/1646   open|filtered
+    UDP/1701   open|filtered
+    UDP/1718   open|filtered
+    UDP/1719   open|filtered
+    UDP/1720   open|filtered
+    UDP/1723   open|filtered
+    UDP/1782   open|filtered
+    UDP/1812   open|filtered
+    UDP/1813   open|filtered
+    UDP/1900   open|filtered
+    UDP/2000   open|filtered
+    UDP/2001   open|filtered
+    UDP/2048   open|filtered
+    UDP/2049   open|filtered
+    UDP/2121   open|filtered
+    UDP/2148   open|filtered
+    UDP/2222   open|filtered
+    UDP/2223   open|filtered
+    UDP/2967   open|filtered
+    UDP/3130   open|filtered
+    UDP/3283   open|filtered
+    UDP/3306   open|filtered
+    UDP/3389   open|filtered
+    UDP/3456   open|filtered
+    UDP/3659   open|filtered
+    UDP/3703   open|filtered
+    UDP/4000   open|filtered
+    UDP/4045   open|filtered
+    UDP/4444   open|filtered
+    UDP/4500   open|filtered
+    UDP/4672   open|filtered
+    UDP/5000   open|filtered
+    UDP/5001   open|filtered
+    UDP/5060   open|filtered
+    UDP/5101   open|filtered
+    UDP/5353   open|filtered
+    UDP/5355   open|filtered
+    UDP/5357   open|filtered
+    UDP/5631   open|filtered
+    UDP/5632   open|filtered
+    UDP/5666   open|filtered
+    UDP/5800   open|filtered
+    UDP/5900   open|filtered
+    UDP/6000   open|filtered
+    UDP/6001   open|filtered
+    UDP/6346   open|filtered
+    UDP/8000   open|filtered
+    UDP/8008   open|filtered
+    UDP/8009   open|filtered
+    UDP/8080   open|filtered
+    UDP/8081   open|filtered
+    UDP/8443   open|filtered
+    UDP/8888   open|filtered
+    UDP/9200   open|filtered
+    UDP/10000  open|filtered
+    UDP/10080  open|filtered
+    UDP/17185  open|filtered
+    UDP/19283  open|filtered
+    UDP/20031  open|filtered
+    UDP/30718  open|filtered
+    UDP/31337  open|filtered
+    UDP/32768  open|filtered
+    UDP/32769  open|filtered
+    UDP/32770  open|filtered
+    UDP/32771  open|filtered
+    UDP/32772  open|filtered
+    UDP/32815  open|filtered
+    UDP/33281  open|filtered
+    UDP/33354  open|filtered
+    UDP/34555  open|filtered
+    UDP/34861  open|filtered
+    UDP/34862  open|filtered
+    UDP/37444  open|filtered
+    UDP/41524  open|filtered
+    UDP/49152  open|filtered
+    UDP/49153  open|filtered
+    UDP/49154  open|filtered
+    UDP/49155  open|filtered
+    UDP/49156  open|filtered
+    UDP/49158  open|filtered
+    UDP/49162  open|filtered
+    UDP/49171  open|filtered
+    UDP/49179  open|filtered
+    UDP/49180  open|filtered
+    UDP/49181  open|filtered
+    UDP/49182  open|filtered
+    UDP/49184  open|filtered
+    UDP/49185  open|filtered
+    UDP/49186  open|filtered
+    UDP/49187  open|filtered
+    UDP/49188  open|filtered
+    UDP/49189  open|filtered
+    UDP/49190  open|filtered
+    UDP/49191  open|filtered
+    UDP/49192  open|filtered
+    UDP/49193  open|filtered
+    UDP/49194  open|filtered
+    UDP/49195  open|filtered
+    UDP/49196  open|filtered
+    UDP/49199  open|filtered
+    UDP/49200  open|filtered
+    UDP/49201  open|filtered
+    UDP/49202  open|filtered
+    UDP/49205  open|filtered
+    UDP/49208  open|filtered
+    UDP/49209  open|filtered
+    UDP/49210  open|filtered
+    UDP/49211  open|filtered
+    UDP/65024  open|filtered
+
+  With router_alert:
+    UDP/7      closed   [was open|filtered]
+    UDP/9      closed   [was open|filtered]
+    UDP/13     closed   [was open|filtered]
+    UDP/17     closed   [was open|filtered]
+    UDP/19     closed   [was open|filtered]
+    UDP/21     closed   [was open|filtered]
+    UDP/22     closed   [was open|filtered]
+    UDP/23     closed   [was open|filtered]
+    UDP/25     closed   [was open|filtered]
+    UDP/26     closed   [was open|filtered]
+    UDP/37     closed   [was open|filtered]
+    UDP/42     closed   [was open|filtered]
+    UDP/49     closed   [was open|filtered]
+    UDP/53     closed   [was open|filtered]
+    UDP/67     open|filtered
+    UDP/68     open|filtered
+    UDP/69     closed   [was open|filtered]
+    UDP/79     closed   [was open|filtered]
+    UDP/80     closed   [was open|filtered]
+    UDP/81     closed   [was open|filtered]
+    UDP/88     closed   [was open|filtered]
+    UDP/106    closed   [was open|filtered]
+    UDP/110    closed   [was open|filtered]
+    UDP/111    closed   [was open|filtered]
+    UDP/113    closed   [was open|filtered]
+    UDP/120    closed   [was open|filtered]
+    UDP/123    open|filtered
+    UDP/135    closed   [was open|filtered]
+    UDP/136    closed   [was open|filtered]
+    UDP/137    closed   [was open|filtered]
+    UDP/138    closed   [was open|filtered]
+    UDP/139    closed   [was open|filtered]
+    UDP/143    closed   [was open|filtered]
+    UDP/144    closed   [was open|filtered]
+    UDP/158    closed   [was open|filtered]
+    UDP/161    open|filtered
+    UDP/162    closed   [was open|filtered]
+    UDP/177    closed   [was open|filtered]
+    UDP/179    closed   [was open|filtered]
+    UDP/199    closed   [was open|filtered]
+    UDP/389    closed   [was open|filtered]
+    UDP/407    closed   [was open|filtered]
+    UDP/427    closed   [was open|filtered]
+    UDP/443    closed   [was open|filtered]
+    UDP/445    closed   [was open|filtered]
+    UDP/465    closed   [was open|filtered]
+    UDP/497    closed   [was open|filtered]
+    UDP/500    closed   [was open|filtered]
+    UDP/513    closed   [was open|filtered]
+    UDP/514    closed   [was open|filtered]
+    UDP/515    closed   [was open|filtered]
+    UDP/517    closed   [was open|filtered]
+    UDP/518    closed   [was open|filtered]
+    UDP/520    closed   [was open|filtered]
+    UDP/543    closed   [was open|filtered]
+    UDP/544    closed   [was open|filtered]
+    UDP/548    closed   [was open|filtered]
+    UDP/554    closed   [was open|filtered]
+    UDP/587    closed   [was open|filtered]
+    UDP/593    closed   [was open|filtered]
+    UDP/623    closed   [was open|filtered]
+    UDP/626    closed   [was open|filtered]
+    UDP/631    closed   [was open|filtered]
+    UDP/646    closed   [was open|filtered]
+    UDP/989    closed   [was open|filtered]
+    UDP/990    closed   [was open|filtered]
+    UDP/993    closed   [was open|filtered]
+    UDP/995    closed   [was open|filtered]
+    UDP/996    closed   [was open|filtered]
+    UDP/997    closed   [was open|filtered]
+    UDP/998    closed   [was open|filtered]
+    UDP/999    closed   [was open|filtered]
+    UDP/1001   closed   [was open|filtered]
+    UDP/1022   closed   [was open|filtered]
+    UDP/1023   closed   [was open|filtered]
+    UDP/1025   closed   [was open|filtered]
+    UDP/1026   open|filtered
+    UDP/1027   closed   [was open|filtered]
+    UDP/1028   closed   [was open|filtered]
+    UDP/1029   closed   [was open|filtered]
+    UDP/1030   closed   [was open|filtered]
+    UDP/1031   closed   [was open|filtered]
+    UDP/1032   closed   [was open|filtered]
+    UDP/1034   closed   [was open|filtered]
+    UDP/1041   closed   [was open|filtered]
+    UDP/1045   closed   [was open|filtered]
+    UDP/1068   closed   [was open|filtered]
+    UDP/1110   closed   [was open|filtered]
+    UDP/1433   closed   [was open|filtered]
+    UDP/1434   closed   [was open|filtered]
+    UDP/1645   closed   [was open|filtered]
+    UDP/1646   closed   [was open|filtered]
+    UDP/1701   open|filtered
+    UDP/1718   closed   [was open|filtered]
+    UDP/1719   closed   [was open|filtered]
+    UDP/1720   closed   [was open|filtered]
+    UDP/1723   closed   [was open|filtered]
+    UDP/1782   closed   [was open|filtered]
+    UDP/1812   closed   [was open|filtered]
+    UDP/1813   closed   [was open|filtered]
+    UDP/1900   closed   [was open|filtered]
+    UDP/2000   closed   [was open|filtered]
+    UDP/2001   closed   [was open|filtered]
+    UDP/2048   closed   [was open|filtered]
+    UDP/2049   closed   [was open|filtered]
+    UDP/2121   closed   [was open|filtered]
+    UDP/2148   closed   [was open|filtered]
+    UDP/2222   closed   [was open|filtered]
+    UDP/2223   closed   [was open|filtered]
+    UDP/2967   closed   [was open|filtered]
+    UDP/3130   closed   [was open|filtered]
+    UDP/3283   closed   [was open|filtered]
+    UDP/3306   closed   [was open|filtered]
+    UDP/3389   closed   [was open|filtered]
+    UDP/3456   closed   [was open|filtered]
+    UDP/3659   closed   [was open|filtered]
+    UDP/3703   closed   [was open|filtered]
+    UDP/4000   closed   [was open|filtered]
+    UDP/4045   closed   [was open|filtered]
+    UDP/4444   closed   [was open|filtered]
+    UDP/4500   closed   [was open|filtered]
+    UDP/4672   closed   [was open|filtered]
+    UDP/5000   closed   [was open|filtered]
+    UDP/5001   closed   [was open|filtered]
+    UDP/5060   closed   [was open|filtered]
+    UDP/5101   closed   [was open|filtered]
+    UDP/5353   closed   [was open|filtered]
+    UDP/5355   closed   [was open|filtered]
+    UDP/5357   closed   [was open|filtered]
+    UDP/5631   closed   [was open|filtered]
+    UDP/5632   closed   [was open|filtered]
+    UDP/5666   closed   [was open|filtered]
+    UDP/5800   closed   [was open|filtered]
+    UDP/5900   closed   [was open|filtered]
+    UDP/6000   closed   [was open|filtered]
+    UDP/6001   open|filtered
+    UDP/6346   closed   [was open|filtered]
+    UDP/8000   closed   [was open|filtered]
+    UDP/8008   closed   [was open|filtered]
+    UDP/8009   closed   [was open|filtered]
+    UDP/8080   closed   [was open|filtered]
+    UDP/8081   closed   [was open|filtered]
+    UDP/8443   closed   [was open|filtered]
+    UDP/8888   closed   [was open|filtered]
+    UDP/9200   closed   [was open|filtered]
+    UDP/10000  closed   [was open|filtered]
+    UDP/10080  closed   [was open|filtered]
+    UDP/17185  closed   [was open|filtered]
+    UDP/19283  closed   [was open|filtered]
+    UDP/20031  closed   [was open|filtered]
+    UDP/30718  closed   [was open|filtered]
+    UDP/31337  closed   [was open|filtered]
+    UDP/32768  closed   [was open|filtered]
+    UDP/32769  closed   [was open|filtered]
+    UDP/32770  closed   [was open|filtered]
+    UDP/32771  closed   [was open|filtered]
+    UDP/32772  closed   [was open|filtered]
+    UDP/32815  closed   [was open|filtered]
+    UDP/33281  closed   [was open|filtered]
+    UDP/33354  closed   [was open|filtered]
+    UDP/34555  closed   [was open|filtered]
+    UDP/34861  closed   [was open|filtered]
+    UDP/34862  closed   [was open|filtered]
+    UDP/37444  closed   [was open|filtered]
+    UDP/41524  closed   [was open|filtered]
+    UDP/49152  closed   [was open|filtered]
+    UDP/49153  closed   [was open|filtered]
+    UDP/49154  closed   [was open|filtered]
+    UDP/49155  closed   [was open|filtered]
+    UDP/49156  closed   [was open|filtered]
+    UDP/49158  closed   [was open|filtered]
+    UDP/49162  closed   [was open|filtered]
+    UDP/49171  closed   [was open|filtered]
+    UDP/49179  closed   [was open|filtered]
+    UDP/49180  closed   [was open|filtered]
+    UDP/49181  closed   [was open|filtered]
+    UDP/49182  closed   [was open|filtered]
+    UDP/49184  closed   [was open|filtered]
+    UDP/49185  closed   [was open|filtered]
+    UDP/49186  closed   [was open|filtered]
+    UDP/49187  closed   [was open|filtered]
+    UDP/49188  closed   [was open|filtered]
+    UDP/49189  closed   [was open|filtered]
+    UDP/49190  closed   [was open|filtered]
+    UDP/49191  closed   [was open|filtered]
+    UDP/49192  closed   [was open|filtered]
+    UDP/49193  closed   [was open|filtered]
+    UDP/49194  closed   [was open|filtered]
+    UDP/49195  closed   [was open|filtered]
+    UDP/49196  closed   [was open|filtered]
+    UDP/49199  closed   [was open|filtered]
+    UDP/49200  closed   [was open|filtered]
+    UDP/49201  closed   [was open|filtered]
+    UDP/49202  closed   [was open|filtered]
+    UDP/49205  closed   [was open|filtered]
+    UDP/49208  closed   [was open|filtered]
+    UDP/49209  closed   [was open|filtered]
+    UDP/49210  closed   [was open|filtered]
+    UDP/49211  closed   [was open|filtered]
+    UDP/65024  closed   [was open|filtered]
+
+  IP Options Support:
+    record_route     — supported
+    timestamp        — inconclusive
+    router_alert     — supported
+[Client] Disconnected.
